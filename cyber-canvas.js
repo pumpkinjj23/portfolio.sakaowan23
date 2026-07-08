@@ -105,6 +105,8 @@ class CyberBackground {
         this.mouseX = null;
         this.mouseY = null;
         this.mouseActive = false;
+        this.isScrolling = false;
+        this.scrollTimeout = null;
 
         this.init();
         this.bindEvents();
@@ -163,6 +165,14 @@ class CyberBackground {
             this.mouseActive = false;
         });
 
+        window.addEventListener('scroll', () => {
+            this.isScrolling = true;
+            clearTimeout(this.scrollTimeout);
+            this.scrollTimeout = setTimeout(() => {
+                this.isScrolling = false;
+            }, 100);
+        }, { passive: true });
+
         // Click burst effect
         window.addEventListener('click', (e) => {
             // Ignore click if it's on a button, link or modal element
@@ -194,6 +204,11 @@ class CyberBackground {
     }
 
     animate() {
+        if (this.isScrolling) {
+            requestAnimationFrame(() => this.animate());
+            return;
+        }
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Draw ambient cursor spotlight
