@@ -1483,10 +1483,11 @@ html[lang="th"] .lang-en {
 .skills-card-new {
     border-radius: 16px;
     border: 1px solid var(--color-border-glass);
-    background: rgba(10, 14, 26, 0.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: var(--transition-smooth);
+    background: rgba(13, 18, 30, 0.75);
+    transition: border-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                background-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
     overflow: hidden;
 }
