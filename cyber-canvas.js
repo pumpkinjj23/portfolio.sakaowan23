@@ -1,15 +1,15 @@
 /**
  * Cyber Security Portfolio - Interactive Background Canvas
- * Draws a clean, high-performance, responsive particle-connection web (neural net / network packets).
+ * Draws a clean, high-performance, relaxing particle/data-drift background.
  * Interactive features:
- *  - Particle connection web
- *  - Mouse attraction (particles are gently pulled towards the cursor)
+ *  - Floating digital particles and binary bits (extremely low CPU usage, 0% lag)
  *  - Mouse ambient lighting (glow effect beneath cursor)
- *  - Mouse click bursts (spawns temporary floating packets)
+ *  - Mouse proximity glow (particles glow brighter near mouse)
+ *  - Mouse click bursts (spawns temporary floating binary data)
  */
 
 class Particle {
-    constructor(x, y, vx, vy, size, color) {
+    constructor(x, y, vx, vy, size, color, isBinary = false) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -17,8 +17,13 @@ class Particle {
         this.size = size;
         this.color = color;
         this.baseSize = size;
-        this.alpha = 1;
+        this.alpha = Math.random() * 0.4 + 0.1; // Random starting opacity
+        this.targetAlpha = this.alpha;
         this.decay = 0; // Used for temporary click-burst particles
+        this.isBinary = isBinary;
+        this.char = Math.random() > 0.5 ? '0' : '1';
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.005;
     }
 
     update(width, height, mouseX, mouseY) {
@@ -26,44 +31,60 @@ class Particle {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Apply decay if temporary
+        // Subtle side-to-side wobble
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.15;
+
+        // Apply decay if temporary click burst particle
         if (this.decay > 0) {
             this.alpha -= this.decay;
-        }
+        } else {
+            // Permanent particle screen wrapping / resetting at bottom
+            if (this.y < -20) {
+                this.y = height + 20;
+                this.x = Math.random() * width;
+            }
+            if (this.x < -20) this.x = width + 20;
+            if (this.x > width + 20) this.x = -20;
 
-        // Boundary reflection for permanent particles
-        if (this.decay === 0) {
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
+            // Proximity interaction with mouse (glow brighter)
+            if (mouseX !== null && mouseY !== null) {
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = 180;
 
-            // Clamp to boundary to prevent drift issues
-            this.x = Math.max(0, Math.min(width, this.x));
-            this.y = Math.max(0, Math.min(height, this.y));
-        }
-
-        // Interactive mouse gravity effect
-        if (mouseX !== null && mouseY !== null) {
-            const dx = mouseX - this.x;
-            const dy = mouseY - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            const maxDist = 200;
-            if (dist < maxDist) {
-                // Stronger pull when further out, weakening as they arrive
-                const force = (maxDist - dist) / maxDist;
-                this.x += (dx / dist) * force * 0.45;
-                this.y += (dy / dist) * force * 0.45;
+                if (dist < maxDist) {
+                    // Increase target alpha based on proximity
+                    const factor = (maxDist - dist) / maxDist;
+                    this.targetAlpha = Math.min(0.8, this.alpha + factor * 0.5);
+                    // Gentle attraction to mouse
+                    this.x += (dx / dist) * factor * 0.3;
+                    this.y += (dy / dist) * factor * 0.3;
+                } else {
+                    this.targetAlpha = this.alpha;
+                }
+            } else {
+                this.targetAlpha = this.alpha;
             }
         }
     }
 
     draw(ctx) {
+        if (this.alpha <= 0) return;
+
         ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.globalAlpha = this.decay > 0 ? this.alpha : (this.decay === 0 ? this.targetAlpha : this.alpha);
         ctx.fillStyle = this.color;
-        ctx.fill();
+
+        if (this.isBinary) {
+            ctx.font = `${Math.floor(this.size * 5) + 8}px monospace`;
+            ctx.fillText(this.char, this.x, this.y);
+        } else {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
         ctx.restore();
     }
 }
@@ -77,10 +98,9 @@ class CyberBackground {
         this.particles = [];
         this.tempParticles = [];
 
-        // Config settings
-        this.maxParticles = 90;
-        this.connectionDist = 150;
-        this.baseSpeed = 0.4;
+        // Low particle counts for smooth, lag-free performance
+        this.maxParticles = 35;
+        this.baseSpeed = -0.3; // Gentle upward drift
 
         this.mouseX = null;
         this.mouseY = null;
@@ -94,27 +114,29 @@ class CyberBackground {
     init() {
         this.resize();
 
-        // Adjust particle density based on screen area
+        // Dynamically set particle count for mobile vs desktop
         const area = this.canvas.width * this.canvas.height;
-        this.maxParticles = Math.min(130, Math.floor(area / 16000));
-        if (this.maxParticles < 30) this.maxParticles = 30; // Mobile safety
+        this.maxParticles = Math.min(45, Math.floor(area / 40000));
+        if (this.maxParticles < 15) this.maxParticles = 15; // Mobile limit
 
         this.particles = [];
         const themeColors = [
-            'rgba(99, 102, 241, 0.45)', // Indigo
-            'rgba(6, 182, 212, 0.45)',  // Cyan
-            'rgba(139, 92, 246, 0.4)'    // Violet
+            'rgba(129, 140, 248, 0.55)', // Soft purple
+            'rgba(56, 189, 248, 0.55)',  // Soft sky blue
+            'rgba(52, 211, 153, 0.45)'   // Soft green
         ];
 
         for (let i = 0; i < this.maxParticles; i++) {
             const x = Math.random() * this.canvas.width;
             const y = Math.random() * this.canvas.height;
-            const vx = (Math.random() - 0.5) * this.baseSpeed;
-            const vy = (Math.random() - 0.5) * this.baseSpeed;
+            // Drifts upwards
+            const vx = (Math.random() - 0.5) * 0.15;
+            const vy = (Math.random() * 0.5 + 0.2) * this.baseSpeed;
             const size = Math.random() * 2 + 1.2;
             const color = themeColors[Math.floor(Math.random() * themeColors.length)];
+            const isBinary = Math.random() > 0.65; // Some are binary characters, some are dots
 
-            this.particles.push(new Particle(x, y, vx, vy, size, color));
+            this.particles.push(new Particle(x, y, vx, vy, size, color, isBinary));
         }
     }
 
@@ -141,7 +163,7 @@ class CyberBackground {
             this.mouseActive = false;
         });
 
-        // Trigger packet burst animation on click
+        // Click burst effect
         window.addEventListener('click', (e) => {
             // Ignore click if it's on a button, link or modal element
             if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.cert-card') || e.target.closest('.modal-content-wrapper')) {
@@ -152,75 +174,22 @@ class CyberBackground {
     }
 
     spawnBurst(x, y) {
-        const burstCount = 14;
+        const burstCount = 10;
         const colors = [
-            'rgba(6, 182, 212, 0.75)', // Cyan
-            'rgba(99, 102, 241, 0.75)'  // Indigo
+            'rgba(56, 189, 248, 0.75)', // Soft sky blue
+            'rgba(129, 140, 248, 0.75)'  // Soft purple
         ];
         for (let i = 0; i < burstCount; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 2.2 + 0.8;
+            const speed = Math.random() * 1.5 + 0.5;
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
-            const size = Math.random() * 2.2 + 1.2;
+            const size = Math.random() * 1.5 + 1.0;
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const p = new Particle(x, y, vx, vy, size, color);
-            p.decay = Math.random() * 0.018 + 0.012; // Gradual fade
+            // Click bursts are always binary digits
+            const p = new Particle(x, y, vx, vy, size, color, true);
+            p.decay = Math.random() * 0.015 + 0.015; // Fades out
             this.tempParticles.push(p);
-        }
-    }
-
-    drawConnections() {
-        const allParticles = [...this.particles, ...this.tempParticles];
-        const length = allParticles.length;
-
-        for (let i = 0; i < length; i++) {
-            const p1 = allParticles[i];
-
-            // Connect node to active mouse cursor
-            if (this.mouseActive && this.mouseX !== null && this.mouseY !== null) {
-                const dx = this.mouseX - p1.x;
-                const dy = this.mouseY - p1.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < this.connectionDist) {
-                    const alpha = (1 - dist / this.connectionDist) * 0.22;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p1.x, p1.y);
-                    this.ctx.lineTo(this.mouseX, this.mouseY);
-
-                    const grad = this.ctx.createLinearGradient(p1.x, p1.y, this.mouseX, this.mouseY);
-                    grad.addColorStop(0, p1.color.replace(/[\d.]+\)$/, `${alpha})`));
-                    grad.addColorStop(1, `rgba(6, 182, 212, ${alpha * 0.4})`);
-
-                    this.ctx.strokeStyle = grad;
-                    this.ctx.lineWidth = 0.9;
-                    this.ctx.stroke();
-                }
-            }
-
-            // Connect node to other nodes
-            for (let j = i + 1; j < length; j++) {
-                const p2 = allParticles[j];
-                const dx = p2.x - p1.x;
-                const dy = p2.y - p1.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < this.connectionDist) {
-                    const alpha = (1 - dist / this.connectionDist) * 0.14;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p1.x, p1.y);
-                    this.ctx.lineTo(p2.x, p2.y);
-
-                    const grad = this.ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                    grad.addColorStop(0, p1.color.replace(/[\d.]+\)$/, `${alpha})`));
-                    grad.addColorStop(1, p2.color.replace(/[\d.]+\)$/, `${alpha})`));
-
-                    this.ctx.strokeStyle = grad;
-                    this.ctx.lineWidth = 0.7;
-                    this.ctx.stroke();
-                }
-            }
         }
     }
 
@@ -229,13 +198,13 @@ class CyberBackground {
 
         // Draw ambient cursor spotlight
         if (this.mouseActive && this.mouseX !== null && this.mouseY !== null) {
-            const glowSize = 360;
+            const glowSize = 320;
             const grad = this.ctx.createRadialGradient(
                 this.mouseX, this.mouseY, 15,
                 this.mouseX, this.mouseY, glowSize
             );
-            grad.addColorStop(0, 'rgba(99, 102, 241, 0.065)');
-            grad.addColorStop(0.5, 'rgba(6, 182, 212, 0.02)');
+            grad.addColorStop(0, 'rgba(129, 140, 248, 0.07)');
+            grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.02)');
             grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
             this.ctx.fillStyle = grad;
@@ -244,7 +213,7 @@ class CyberBackground {
             this.ctx.fill();
         }
 
-        // Update and draw permanent background nodes
+        // Update and draw permanent floating nodes
         this.particles.forEach(p => {
             p.update(this.canvas.width, this.canvas.height, this.mouseX, this.mouseY);
             p.draw(this.ctx);
@@ -261,14 +230,11 @@ class CyberBackground {
             }
         }
 
-        // Draw lines between proximate nodes
-        this.drawConnections();
-
         requestAnimationFrame(() => this.animate());
     }
 }
 
-// Run canvas background after DOM loading
+// Run background after DOM loading
 document.addEventListener('DOMContentLoaded', () => {
     new CyberBackground();
 });
