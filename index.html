@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakaowan Buranawatasing | Cyber Security Portfolio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Portfolio of Sakaowan Buranawatasing (Jubjang), a 4th-year Computer Engineering student at PSRU specializing in Cyber Security and CTF competitions.">
+    <meta name="keywords"
+        content="Sakaowan Buranawatasing, สกาววรรณ บูรณะวาทศิลป์, จุ๊บแจง, Cyber Security, CTF, Computer Engineering, PSRU, whereisTheFlag, portfolio">
+    <meta name="author" content="Sakaowan Buranawatasing">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=1.1">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- --- Header & Navigation --- -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span>SEC</span>.Sakaowan<span class="logo-dot"></span>
+            </a>
+            <div class="hud-status-bar">
+                <div class="status-item">
+                    <span class="status-label">SYS:</span>
+                    <span class="status-val text-green">ONLINE</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">CPU:</span>
+                    <span class="status-val" id="hud-cpu">08%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">MEM:</span>
+                    <span class="status-val" id="hud-mem">32%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">SEC:</span>
+                    <span class="status-val text-cyan">LVL_4</span>
+                </div>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link"><span class="lang-th">หน้าแรก</span><span
+                            class="lang-en">Home</span></a></li>
+                <li><a href="#about" class="nav-link"><span class="lang-th">เกี่ยวกับฉัน</span><span
+                            class="lang-en">About</span></a></li>
+                <li><a href="#skills" class="nav-link"><span class="lang-th">ทักษะ</span><span
+                            class="lang-en">Skills</span></a></li>
+                <li><a href="#certificates" class="nav-link"><span class="lang-th">เกียรติบัตร</span><span
+                            class="lang-en">Certificates</span></a></li>
+                <li class="nav-lang-item">
+                    <div class="lang-switcher">
+                        <button class="lang-btn active" data-lang="th">TH</button>
+                        <span class="lang-divider">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- --- Hero Section --- -->
+    <section class="hero" id="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="cyber-tag">
+                    <span class="lang-th">ผู้ดูแลระบบ & นักแข่ง CTF</span>
+                    <span class="lang-en">System Administrator & CTF Player</span>
+                </div>
+                <h1>
+                    <span class="lang-th">สวัสดีค่ะ, ฉันชื่อ <span>Sakaowan</span></span>
+                    <span class="lang-en">Hi, I'm <span>Sakaowan</span></span>
+                </h1>
+                <div class="hero-subtitle">
+                    <span class="lang-th">นักศึกษาวิศวกรรมคอมพิวเตอร์ & ความมั่นคงปลอดภัยไซเบอร์</span>
+                    <span class="lang-en">Cyber Security & Computer Engineering Student</span>
+                </div>
+                <p class="hero-desc">
+                    <span class="lang-th">ปัจจุบันศึกษาอยู่ชั้นปีที่ 4 สาขาวิชาวิศวกรรมคอมพิวเตอร์
+                        มหาวิทยาลัยราชภัฏพิบูลสงคราม มุ่งเน้นการศึกษาและพัฒนาทักษะด้านความมั่นคงปลอดภัยไซเบอร์
+                        (Cybersecurity) และการแข่งขัน Capture The Flag (CTF) ในทีม whereisTheFlag</span>
+                    <span class="lang-en">Currently a 4th-year Computer Engineering student at Pibulsongkram Rajabhat
+                        University (PSRU), focusing on Cyber Security, system administration, and participating in
+                        Capture The Flag (CTF) competitions with the whereisTheFlag team.</span>
+                </p>
+                <div class="hero-cta">
+                    <a href="#certificates" class="btn btn-primary">
+                        <i class="fas fa-shield-halved"></i>
+                        <span class="lang-th">ดูผลงาน / ประกาศนียบัตร</span>
+                        <span class="lang-en">View Certificates</span>
+                    </a>
+                    <a href="#about" class="btn btn-secondary">
+                        <i class="fas fa-user"></i>
+                        <span class="lang-th">เกี่ยวกับฉัน</span>
+                        <span class="lang-en">About Me</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Terminal Panel -->
+            <div class="terminal-panel">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="term-dot red"></span>
+                        <span class="term-dot yellow"></span>
+                        <span class="term-dot green"></span>
+                    </div>
+                    <div class="terminal-title">whereistheflag@sec-portfolio:~</div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <!-- Lines will be dynamically generated by JS -->
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">whereistheflag@sec-portfolio:~$</span>
+                        <span class="terminal-output">nmap -sV -T4 target.local</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-output" style="color: var(--color-text-secondary);">Starting Nmap 7.93 (
+                            https://nmap.org ) at 2026-06-21...</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">whereistheflag@sec-portfolio:~$</span>
+                        <span class="terminal-output" id="typed-text"></span><span class="terminal-cursor"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- About Me Section --- -->
+    <section class="reveal" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="lang-th">เกี่ยวกับฉัน</span>
+                    <span class="lang-en">About Me</span>
+                </h2>
+                <p>
+                    <span class="lang-th">ข้อมูลส่วนตัวและการศึกษา</span>
+                    <span class="lang-en">Personal Info & Education</span>
+                </p>
+            </div>
+
+            <div class="about-grid-new">
+                <!-- Left Panel: Profile & Bio -->
+                <div class="about-left-panel glass-panel">
+                    <div class="about-profile-header">
+                        <div class="about-image">
+                            <div class="avatar-wrapper dossier-frame">
+                                <div class="hud-scanner"></div>
+                                <img src="images/cyber_avatar.jpg" alt="Sakaowan Cyber Avatar">
+                                <div class="avatar-glow"></div>
+                                <div class="hud-bracket tl"></div>
+                                <div class="hud-bracket tr"></div>
+                                <div class="hud-bracket bl"></div>
+                                <div class="hud-bracket br"></div>
+                                <div class="dossier-overlay-text">
+                                    <span class="lang-th">เป้าหมาย // ตรวจพบ</span>
+                                    <span class="lang-en">TARGET // DETECTED</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-bio">
+                            <h3>
+                                <span class="lang-th">นางสาวสกาววรรณ บูรณะวาทศิลป์ (จุ๊บแจง)</span>
+                                <span class="lang-en">Miss Sakaowan Buranavatasin (Jubjang)</span>
+                            </h3>
+                            <div class="uni-tag">
+                                <span class="lang-th">มหาวิทยาลัยราชภัฏพิบูลสงคราม (PSRU)</span>
+                                <span class="lang-en">Pibulsongkram Rajabhat University (PSRU)</span>
+                            </div>
+                            <p>
+                                <span class="lang-th">นักศึกษาชั้นปีที่ 4 คณะวิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม สาขาวิชาวิศวกรรมคอมพิวเตอร์ มีความสนใจในด้านความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity) ระบบเครือข่าย และเทคโนโลยีคอนเทนเนอร์ มีประสบการณ์ในการเข้าร่วมแข่งขันทักษะทางไซเบอร์ในระดับประเทศ เช่น Thailand Cyber Top Talent และอบรมเชิงปฏิบัติการทางไซเบอร์อย่างสม่ำเสมอ</span>
+                                <span class="lang-en">Final-year Computer Engineering student in the Faculty of Engineering and Industrial Technology at PSRU, passionate about Cybersecurity, with practical hands-on experience in Network & Web Security, Cryptography, and Digital Forensics. Proven technical and problem-solving skills demonstrated through successful CTF competitions and personal laboratory projects. A fast learner and collaborative team player, eager to contribute to and grow within a professional security team as a Junior Cybersecurity Specialist.</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid" style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px;">
+                        <div class="info-item">
+                            <span class="label">ชื่อเล่น / Nickname</span>
+                            <span class="val">
+                                <span class="lang-th">จุ๊บแจง</span>
+                                <span class="lang-en">Jubjang</span>
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">อายุ / Age</span>
+                            <span class="val">
+                                <span class="lang-th">22 ปี</span>
+                                <span class="lang-en">22 Years Old</span>
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">คณะ / Faculty</span>
+                            <span class="val">
+                                <span class="lang-th">วิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม</span>
+                                <span class="lang-en">Engineering and Industrial Technology</span>
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">สาขา / Major</span>
+                            <span class="val">
+                                <span class="lang-th">วิศวกรรมคอมพิวเตอร์</span>
+                                <span class="lang-en">Computer Engineering</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panels: Education & Target Role -->
+                <div class="about-right-panels">
+                    <!-- Education Card -->
+                    <div class="about-card glass-panel">
+                        <div class="about-card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="about-card-content">
+                            <h4>
+                                <span class="lang-th">การศึกษา</span>
+                                <span class="lang-en">Education</span>
+                            </h4>
+                            <p style="margin-bottom: 12px; font-size: 0.95rem;">
+                                <span class="lang-th">วิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยราชภัฏพิบูลสงคราม</span>
+                                <span class="lang-en">Bachelor of Engineering in Computer Engineering at Pibulsongkram Rajabhat University</span>
+                            </p>
+                            <div class="gpa-grid">
+                                <div class="gpa-box">
+                                    <span class="gpa-val">3.78</span>
+                                    <span class="gpa-lbl">GPAX</span>
+                                </div>
+                                <div class="gpa-box">
+                                    <span class="gpa-val">3.88</span>
+                                    <span class="gpa-lbl">MAJOR</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <a href="transcript.pdf" target="_blank" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>Transcript</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Role Card -->
+                    <div class="about-card glass-panel">
+                        <div class="about-card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="about-card-content">
+                            <h4>
+                                <span class="lang-th">เป้าหมายการทำงาน</span>
+                                <span class="lang-en">Target Role</span>
+                            </h4>
+                            <div style="font-size: 0.95rem; line-height: 1.6; color: var(--color-text-secondary); margin-top: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-cyan); flex-shrink: 0;"></span>
+                                    <span>QA (Quality Assurance) Software Tester</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-purple); flex-shrink: 0;"></span>
+                                    <span>Penetration Tester / IT Security Consultant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Cards -->
+            <div class="contact-cards" style="margin-top: 30px;">
+                <a href="mailto:sakaowan.b@psur.ac.th" class="contact-card glass-panel">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-info">
+                        <label>Email</label>
+                        <span>sakaowan.b@psur.ac.th</span>
+                    </div>
+                </a>
+                <a href="tel:0954847391" class="contact-card glass-panel">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-info">
+                        <span class="lang-th"><label>เบอร์โทรศัพท์</label></span>
+                        <span class="lang-en"><label>Phone Number</label></span>
+                        <span>095-4847-391</span>
+                    </div>
+                </a>
+                <a href="https://github.com/pumpkinjj23" target="_blank" rel="noopener noreferrer"
+                    class="contact-card glass-panel">
+                    <div class="contact-icon"><i class="fab fa-github"></i></div>
+                    <div class="contact-info">
+                        <label>GitHub / Username</label>
+                        <span>pumpkinjj23</span>
+                    </div>
+                </a>
+            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Skills Section --- -->
+    <section class="reveal" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="lang-th">ทักษะของฉัน</span>
+                    <span class="lang-en">My Skills</span>
+                </h2>
+                <p>
+                    <span class="lang-th">ทักษะความสามารถทางเทคนิค</span>
+                    <span class="lang-en">Technical Skills & Capabilities</span>
+                </p>
+            </div>
+
+            <div class="skills-container-new">
+                
+                <!-- Card 1: Web Development -->
+                <div class="skills-card-new" data-category="web-dev">
+                    <div class="skills-header-new">
+                        <div class="skills-title-group">
+                            <div class="skills-icon-box"><i class="fas fa-code"></i></div>
+                            <h4>
+                                <span class="lang-th">พัฒนาเว็บแอปพลิเคชัน</span>
+                                <span class="lang-en">Web Development</span>
+                            </h4>
+                        </div>
+                        <div class="skills-meta-group">
+                            <span class="skills-count-lbl">
+                                <span class="lang-th">6 ทักษะ</span>
+                                <span class="lang-en">6 skills</span>
+                            </span>
+                            <i class="fas fa-chevron-down skills-chevron"></i>
+                        </div>
+                    </div>
+                    <div class="skills-body-wrapper">
+                        <div class="skills-body-inner">
+                            <div class="skills-tags-list">
+                                <span class="skill-tag-badge">HTML5</span>
+                                <span class="skill-tag-badge">CSS3</span>
+                                <span class="skill-tag-badge">JavaScript</span>
+                                <span class="skill-tag-badge">React</span>
+                                <span class="skill-tag-badge">Bootstrap</span>
+                                <span class="skill-tag-badge">REST APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Frontend & Flutter -->
+                <div class="skills-card-new" data-category="frontend-flutter">
+                    <div class="skills-header-new">
+                        <div class="skills-title-group">
+                            <div class="skills-icon-box">
+                                <svg class="skills-svg-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14.314 0L2.3 12l3.7 3.7L21.684 0H14.314zM21.684 12h-7.37l-3.7 3.7 3.7 3.7 7.37-7.4zM14.314 12L6 20.3 9.7 24l12-12H14.314z"/>
+                                </svg>
+                            </div>
+                            <h4>
+                                <span class="lang-th">นักพัฒนาส่วนหน้า & Flutter</span>
+                                <span class="lang-en">Frontend & Flutter</span>
+                            </h4>
+                        </div>
+                        <div class="skills-meta-group">
+                            <span class="skills-count-lbl">
+                                <span class="lang-th">3 ทักษะ</span>
+                                <span class="lang-en">3 skills</span>
+                            </span>
+                            <i class="fas fa-chevron-down skills-chevron"></i>
+                        </div>
+                    </div>
+                    <div class="skills-body-wrapper">
+                        <div class="skills-body-inner">
+                            <div class="skills-tags-list">
+                                <span class="skill-tag-badge">Flutter</span>
+                                <span class="skill-tag-badge">Mobile UI/UX</span>
+                                <span class="skill-tag-badge">Git & Version Control</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Programming -->
+                <div class="skills-card-new" data-category="programming">
+                    <div class="skills-header-new">
+                        <div class="skills-title-group">
+                            <div class="skills-icon-box"><i class="fas fa-laptop-code"></i></div>
+                            <h4>
+                                <span class="lang-th">การเขียนโปรแกรม</span>
+                                <span class="lang-en">Programming</span>
+                            </h4>
+                        </div>
+                        <div class="skills-meta-group">
+                            <span class="skills-count-lbl">
+                                <span class="lang-th">4 ทักษะ</span>
+                                <span class="lang-en">4 skills</span>
+                            </span>
+                            <i class="fas fa-chevron-down skills-chevron"></i>
+                        </div>
+                    </div>
+                    <div class="skills-body-wrapper">
+                        <div class="skills-body-inner">
+                            <div class="skills-tags-list">
+                                <span class="skill-tag-badge">Python</span>
+                                <span class="skill-tag-badge">JavaScript</span>
+                                <span class="skill-tag-badge">C/C++</span>
+                                <span class="skill-tag-badge">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Tools & Platforms -->
+                <div class="skills-card-new" data-category="tools">
+                    <div class="skills-header-new">
+                        <div class="skills-title-group">
+                            <div class="skills-icon-box"><i class="fas fa-cubes"></i></div>
+                            <h4>
+                                <span class="lang-th">เครื่องมือ & แพลตฟอร์ม</span>
+                                <span class="lang-en">Tools & Platforms</span>
+                            </h4>
+                        </div>
+                        <div class="skills-meta-group">
+                            <span class="skills-count-lbl">
+                                <span class="lang-th">6 ทักษะ</span>
+                                <span class="lang-en">6 skills</span>
+                            </span>
+                            <i class="fas fa-chevron-down skills-chevron"></i>
+                        </div>
+                    </div>
+                    <div class="skills-body-wrapper">
+                        <div class="skills-body-inner">
+                            <div class="skills-tags-list">
+                                <span class="skill-tag-badge">Docker</span>
+                                <span class="skill-tag-badge">Git & GitHub</span>
+                                <span class="skill-tag-badge">Linux (Ubuntu/Debian)</span>
+                                <span class="skill-tag-badge">VS Code</span>
+                                <span class="skill-tag-badge">Figma</span>
+                                <span class="skill-tag-badge">Vite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Certificates Section --- -->
+    <section class="reveal" id="certificates">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="lang-th">เกียรติบัตรและความสำเร็จ</span>
+                    <span class="lang-en">Certificates & Achievements</span>
+                </h2>
+                <p>
+                    <span class="lang-th">การแข่งขันและใบประกาศนียบัตร</span>
+                    <span class="lang-en">Competitions & Technical Certificates</span>
+                </p>
+            </div>
+
+            <!-- Filters -->
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <span class="lang-th">ทั้งหมด</span>
+                    <span class="lang-en">All</span>
+                </button>
+                <button class="filter-btn" data-filter="projects">
+                    <span class="lang-th">โครงการ / ผลงาน</span>
+                    <span class="lang-en">Projects & Works</span>
+                </button>
+                <button class="filter-btn" data-filter="ctf">
+                    <span class="lang-th">การแข่งขัน CTF & Hackathon</span>
+                    <span class="lang-en">CTF & Hackathons</span>
+                </button>
+                <button class="filter-btn" data-filter="bootcamp">
+                    <span class="lang-th">การอบรม & บูทแคมป์</span>
+                    <span class="lang-en">Bootcamps & Workshops</span>
+                </button>
+                <button class="filter-btn" data-filter="course">
+                    <span class="lang-th">คอร์สและใบเซอร์ไอที</span>
+                    <span class="lang-en">Technical Courses</span>
+                </button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="gallery-grid">
+
+                <!-- Project: PSRU Blockchain Digital Wallet -->
+                <div class="cert-card glass-panel" data-category="projects" data-screenshots="images/psru_wallet_screenshot1.png,images/psru_wallet_screenshot2.png,images/psru_wallet_screenshot3.png,images/psru_wallet_screenshot4.png">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/psru_wallet_screenshot1.png"
+                            alt="PSRU Blockchain Digital Wallet for Carbon Credit Point">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูรายละเอียดโครงการ</span>
+                                <span class="lang-en">View Project Details</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">พัฒนาเว็บแอปพลิเคชัน (Web Development)</span>
+                            <span class="lang-en">Web Application Development</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">ระบบกระเป๋าเงินดิจิทัลบล็อกเชนสำหรับคะแนนคาร์บอนเครดิต (PSRU Blockchain Digital Wallet)</span>
+                            <span class="lang-en">PSRU Blockchain Digital Wallet for Carbon Credit Points</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ทำหน้าที่เป็นนักพัฒนาส่วนหน้า (Frontend Developer) พัฒนาระบบกระเป๋าเงินดิจิทัลบนเทคโนโลยีบล็อกเชนของมหาวิทยาลัย เพื่อรองรับการสะสมและแลกเปลี่ยนคะแนนคาร์บอนเครดิต โดยออกแบบส่วนติดต่อผู้ใช้ (UI) ให้สวยงาม ใช้งานง่าย และเชื่อมต่อระบบหลังบ้านอย่างปลอดภัย</span>
+                            <span class="lang-en">Served as a Frontend Developer for the university's blockchain-based digital wallet application. Designed and implemented a responsive, user-friendly interface for managing carbon credit points, ensuring secure integration with the blockchain backend.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> Mar 2026</span>
+                            <span class="cert-badge">Frontend Developer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project: Web Pentest "Back to Techno 2026" -->
+                <div class="cert-card glass-panel" data-category="projects" data-screenshots="images/backtotechno_cover.png,images/backtotechno_seatmap.png,images/backtotechno_form.png,images/backtotechno_nikto.png,images/backtotechno_burp1.png,images/backtotechno_burp2.png,images/backtotechno_burp3.png">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/backtotechno_cover.png"
+                            alt="Web Pentesting - Back to Techno 2026">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูรายละเอียดโครงการ</span>
+                                <span class="lang-en">View Project Details</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">ทดสอบเจาะระบบ (Web Pentesting)</span>
+                            <span class="lang-en">Web Penetration Testing</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">การทดสอบเจาะระบบเว็บแอปพลิเคชัน "Back to Techno 2026" ของคณะ</span>
+                            <span class="lang-en">Web Penetration Testing: "Back to Techno 2026" Faculty Application</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ทำการทดสอบเจาะระบบ (Web Pentest) บนระบบจองโต๊ะงานคืนสู่เหย้าศิษย์เก่าของคณะเทคโนโลยีอุตสาหกรรม โดยทำการสแกนช่องโหว่ความเสี่ยงด้วย Nikto และวิเคราะห์ดักจับพารามิเตอร์ Request ด้วย Burp Suite ในการตรวจสอบการควบคุมสิทธิ์เข้าถึง (Access Control) และความปลอดภัยของสลิปชำระเงินก่อนใช้งานจริง</span>
+                            <span class="lang-en">Conducted web penetration testing (VAPT) for the alumni reunion reservation web application of the Faculty of Industrial Technology. Identified vulnerabilities using Nikto scanner, intercepted parameters using Burp Suite to audit Access Control vulnerabilities, and verified upload form security.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> Nov 2025</span>
+                            <span class="cert-badge">Faculty Project</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project: Research to Market (R2M) 2024 -->
+                <div class="cert-card glass-panel" data-category="projects">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/twitter_post_9.png"
+                            alt="Research to Market 2024 Award">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูรูปภาพ</span>
+                                <span class="lang-en">View Image</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">โครงการ / แข่งขัน Pitching</span>
+                            <span class="lang-en">Project / Pitching Competition</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">โครงการเส้นทางสู่นวัตวณิชย์ Research to Market: R2M 2024</span>
+                            <span class="lang-en">Research to Market (R2M) 2024 Competition</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมโครงการ "เส้นทางสู่นวัตวณิชย์" (Research to Market: R2M) ระดับมหาวิทยาลัย และได้รับรางวัลชมเชยจากการแข่งขันการนำเสนอแผนความเป็นไปได้ในการนำผลงานวิจัยไปต่อยอดเชิงพาณิชย์ ในนามทีม Green Nest ณ มหาวิทยาลัยราชภัฏพิบูลสงคราม</span>
+                            <span class="lang-en">Participated in the university-level "Research to Market" (R2M) competition and won the Appreciation Award for presenting commercial feasibility study for research innovations under team Green Nest at PSRU.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 30 Oct - 1 Nov 2024</span>
+                            <span class="cert-badge">Appreciation Award</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project: New Regional Startups (P1) 2024 -->
+                <div class="cert-card glass-panel" data-category="projects">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/twitter_post_8.png"
+                            alt="New Regional Startups 2024 Award">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูรูปภาพ</span>
+                                <span class="lang-en">View Image</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">โครงการ / แข่งขัน Pitching</span>
+                            <span class="lang-en">Project / Pitching Competition</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">โครงการสร้างผู้ประกอบการรายใหม่ในภูมิภาค New Regional Startups (P1) 2024</span>
+                            <span class="lang-en">New Regional Startups (P1) 2024 Entrepreneurship Program</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมโครงการพัฒนาผู้ประกอบการรายใหม่ในภูมิภาค New Regional Startups (P1) และได้รับรางวัลชมเชยจากการแข่งขัน Pitching แผนธุรกิจเทคโนโลยี ในนามทีม PETCOLL TECH จัดโดยมหาวิทยาลัยราชภัฏพิบูลสงคราม ร่วมกับเครือข่ายอุทยานวิทยาศาสตร์ภาคเหนือ</span>
+                            <span class="lang-en">Participated in the New Regional Startups (P1) entrepreneurship program and won the Appreciation Award in the technology business plan pitching competition under team PETCOLL TECH, organized by PSRU and Northern Science Park Network.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 5-8 Oct 2024</span>
+                            <span class="cert-badge">Appreciation Award</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1: THCTT 2025 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/Part_2_Senior_Top_Talent_Page177.png"
+                            alt="Thailand Cyber Talent 2025 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Thailand Cyber Talent 2025</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการแข่งขัน Thailand Cyber Top Talent 2025 ระดับ SENIOR
+                                [Qualifier] ในนามทีม whereisTheFlag</span>
+                            <span class="lang-en">Participated in the Thailand Cyber Top Talent 2025 competition, Senior
+                                Division [Qualifier] as a member of team whereisTheFlag.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 30 Aug 2025</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: THCTT 2024 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/Cert_Senior_THCTT24_Num492.png"
+                            alt="Thailand Cyber Top Talent 2024 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Thailand Cyber Top Talent 2024</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการแข่งขัน Thailand Cyber Top Talent 2024 ระดับ SENIOR
+                                [Qualifier] ในนามทีม cpe00</span>
+                            <span class="lang-en">Participated in the Thailand Cyber Top Talent 2024 competition, Senior
+                                Division [Qualifier] as a member of team cpe00.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 12 Oct 2024</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Women THCTT 2025 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/Certificate_จจฉายเดี่ยว_Sakaowan_Buranavatasin.png"
+                            alt="Women Thailand Cyber Top Talent 2025 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Women Thailand Cyber Top Talent 2025</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการแข่งขัน Women Thailand Cyber Top Talent 2025 ระดับ SENIOR
+                                [Qualifier] ในนามทีม จจฉายเดี่ยว</span>
+                            <span class="lang-en">Participated in the Women Thailand Cyber Top Talent 2025 competition,
+                                Senior Division [Qualifier] as a member of team จจฉายเดี่ยว.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 17 Jan 2026</span>
+                            <span class="cert-badge">NCSA & Huawei</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Women THCTT 2024 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/150_SENIOR_Women_CERT_NCSA_Boot_Camp_2024_รุ่น_2.png"
+                            alt="Women Thailand Cyber Top Talent 2024 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Women Thailand Cyber Top Talent 2024</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการแข่งขัน Women Thailand Cyber Top Talent 2024 ระดับ SENIOR
+                                [Qualifier] ในนามทีม CPE66</span>
+                            <span class="lang-en">Participated in the Women Thailand Cyber Top Talent 2024 competition,
+                                Senior Division [Qualifier] as a member of team CPE66.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 23 Jan 2025</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: PSRU Cyber Hackathon #3 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/Certificate_นางสาวสกาววรรณ_บูรณะวาทศิลป์_PSRUHACK26_749B4C80_1.png"
+                            alt="PSRU Cyber Hackathon 3 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">PSRU Cyber Hackathon #3 (2026)</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการแข่งขันอบรมเชิงปฏิบัติการขั้นสูง (Advanced Level - 21 ชม.)
+                                PSRU CYBER HACKATHON#3 ในนามทีม whereisTheFlag</span>
+                            <span class="lang-en">Participated in the PSRU Cyber Hackathon #3 advanced workshop (21
+                                hours) as a member of team whereisTheFlag.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 19-21 Mar 2026</span>
+                            <span class="cert-badge">PSRU & NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: PSRU Cyber Hackathon #2 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/Certificate_Hackathon_2.png" alt="PSRU Cyber Hackathon 2 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">PSRU Cyber Hackathon #2 (2024)</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">เข้าร่วมการฝึกอบรมและแข่งขันทักษะการรักษาความปลอดภัยไซเบอร์ (21 ชม.)
+                                และได้รับรางวัลอันดับที่ 6</span>
+                            <span class="lang-en">Participated in the PSRU Cyber Hackathon #2 cybersecurity training and
+                                competition (21 hours) and secured 6th place.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 1-3 Dec 2024</span>
+                            <span class="cert-badge">6th Place</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: NCSA Boot Camp 2025 (3rd Place) -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/รองชนะเลิศ_อันดับ_2_การแข่งขัน_CTF_BootCamp_2025_Part3.png"
+                            alt="NCSA CTF Boot Camp 2025 3rd Place Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Mini CTF - NCSA Boot Camp 2025</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ได้รับรางวัลรองชนะเลิศอันดับ 2 (อันดับ 3) การแข่งขัน Mini CTF
+                                ในบูทแคมป์ NCSA 2025 ในนามทีม หน่วยป้องกันข้อมูล</span>
+                            <span class="lang-en">Won 3rd place (2nd Runner-up) in the Mini CTF competition at NCSA Boot
+                                Camp 2025 with team Data Protection Unit.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 28-29 Jun 2025</span>
+                            <span class="cert-badge">3rd Place</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: NCSA Boot Camp 2024 (2nd Place) -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/twitter_post_2.png" alt="NCSA Boot Camp 2024 Award">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูรูปภาพ</span>
+                                <span class="lang-en">View Image</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">NCSA Boot Camp 2024</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ได้รับรางวัลชนะเลิศอันดับ 2 (รองชนะเลิศอันดับ 1)
+                                ในกิจกรรมอบรมสัมมนาเชิงปฏิบัติการ NCSA Boot Camp 2024 ในนามทีม DYPACK</span>
+                            <span class="lang-en">Won 2nd place (1st Runner-up) in the NCSA Boot Camp 2024 workshop
+                                competition as a member of team DYPACK.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 14-15 Sep 2024</span>
+                            <span class="cert-badge">2nd Place</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Wan Lai CTF Challenge 2026 -->
+                <div class="cert-card glass-panel" data-category="ctf">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/cert_19de3dfa80a_1002.png" alt="Wan Lai CTF Challenge Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">การแข่งขัน CTF</span>
+                            <span class="lang-en">CTF Competitions</span>
+                        </span>
+                        <h3 class="cert-title">Wan Lai CTF Challenge 2026</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ได้รับใบประกาศเกียรติคุณ Certificate of Achievement
+                                จากการเข้าร่วมแข่งขัน Wan Lai CTF Challenge 2026 จัดโดย DropCTF</span>
+                            <span class="lang-en">Awarded Certificate of Achievement for participating in the Wan Lai
+                                CTF Challenge 2026 organized by DropCTF.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 30 Apr 2026</span>
+                            <span class="cert-badge">DropCTF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Secure Software Development & Application Security (2026) -->
+                <div class="cert-card glass-panel" data-category="bootcamp">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/ระบบจัดการการอบรม_1.png" alt="Secure Software Development & Application Security Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">บูทแคมป์ & เวิร์กชอป</span>
+                            <span class="lang-en">Bootcamps & Workshops</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">Secure Software Development & Application Security</span>
+                            <span class="lang-en">Secure Software Development & Application Security</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการอบรมเชิงปฏิบัติการหลักสูตร Secure Software Development & Application Security จัดโดยมหาวิทยาลัยราชภัฏพิบูลสงคราม</span>
+                            <span class="lang-en">Completed the hands-on training course on Secure Software Development & Application Security organized by Pibulsongkram Rajabhat University.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 27-28 Jun 2026</span>
+                            <span class="cert-badge">PSRU</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: NCSA CTF Boot Camp รุ่นที่ 2 (2026) -->
+                <div class="cert-card glass-panel" data-category="bootcamp">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/CTF_Boot_Camp_Batch_2.jpg" alt="CTF Boot Camp รุ่นที่ 2 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">บูทแคมป์ & เวิร์กชอป</span>
+                            <span class="lang-en">Bootcamps & Workshops</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">CTF Boot Camp รุ่นที่ 2</span>
+                            <span class="lang-en">CTF Boot Camp Batch 2</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการอบรมเชิงปฏิบัติการทางไซเบอร์ โครงการกิจกรรม CTF BOOT CAMP
+                                รุ่นที่ 2 ณ โรงแรมเดอะ แกรนด์ ชัยพฤกษ์ นิมมาน เชียงใหม่</span>
+                            <span class="lang-en">Completed the cybersecurity hands-on workshop CTF Boot Camp Batch 2,
+                                held at The Grand Chaophraya Nimman Hotel, Chiang Mai.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 6-7 Jun 2026</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: NCSA CTF Boot Camp 2026 -->
+                <div class="cert-card glass-panel" data-category="bootcamp">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/cert_13852.jpg" alt="CTF Boot Camp 2026 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">บูทแคมป์ & เวิร์กชอป</span>
+                            <span class="lang-en">Bootcamps & Workshops</span>
+                        </span>
+                        <h3 class="cert-title">CTF Boot Camp & Career Guidance 2026</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการอบรมเชิงปฏิบัติการ CTF Boot Camp
+                                และแนะแนวอาชีพทางด้านการรักษาความมั่นคงปลอดภัยไซเบอร์ ประจำปี 2569</span>
+                            <span class="lang-en">Completed the CTF Boot Camp & Cybersecurity Career Guidance workshop
+                                for the year 2026.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 25-26 Apr 2026</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11: NCSA CTF Boot Camp 2025 -->
+                <div class="cert-card glass-panel" data-category="bootcamp">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/page_117.png" alt="CTF Boot Camp 2025 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">บูทแคมป์ & เวิร์กชอป</span>
+                            <span class="lang-en">Bootcamps & Workshops</span>
+                        </span>
+                        <h3 class="cert-title">CTF Boot Camp & Career Guidance 2025</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการอบรมเชิงปฏิบัติการ CTF Boot Camp
+                                และแนะแนวอาชีพทางด้านการรักษาความมั่นคงปลอดภัยไซเบอร์ ผ่านสื่ออิเล็กทรอนิกส์</span>
+                            <span class="lang-en">Completed the online CTF Boot Camp & Cybersecurity Career Guidance
+                                workshop.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 24-25 May 2568</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12: CTF Boot Camp Batch 1 -->
+                <div class="cert-card glass-panel" data-category="bootcamp">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/CTF_Cert_Part36.png" alt="CTF Boot Camp Batch 1 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">บูทแคมป์ & เวิร์กชอป</span>
+                            <span class="lang-en">Bootcamps & Workshops</span>
+                        </span>
+                        <h3 class="cert-title">
+                            <span class="lang-th">CTF Boot Camp รุ่นที่ 1</span>
+                            <span class="lang-en">CTF Boot Camp Batch 1</span>
+                        </h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการอบรมเชิงปฏิบัติการทางไซเบอร์ โครงการกิจกรรม CTF BOOT CAMP
+                                รุ่นที่ 1 จัดขึ้น ณ โรงแรม ดิ อิมพีเรียล โฮเทล พิษณุโลก</span>
+                            <span class="lang-en">Completed the cybersecurity hands-on workshop CTF Boot Camp Batch 1,
+                                held at The Imperial Hotel Phitsanulok.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 28-29 Jun 2568</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13: Fortinet Getting Started in Cybersecurity 3.0 -->
+                <div class="cert-card glass-panel" data-category="course">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/6843942812SB.png" alt="Getting Started in Cybersecurity 3.0 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">คอร์สเรียนไอที</span>
+                            <span class="lang-en">Technical Courses</span>
+                        </span>
+                        <h3 class="cert-title">Getting Started in Cybersecurity 3.0</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">สำเร็จการศึกษาหลักสูตร Getting Started in Cybersecurity 3.0
+                                จากสถาบันฝึกอบรมฟอร์ทิเน็ต (Fortinet Training Institute)</span>
+                            <span class="lang-en">Successfully completed the Getting Started in Cybersecurity 3.0 course
+                                by the Fortinet Training Institute.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 5 Jul 2026</span>
+                            <span class="cert-badge">Fortinet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13: Container Technology Workshop -->
+                <div class="cert-card glass-panel" data-category="course">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/certificate.png" alt="Docker & Kubernetes Workshop Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">คอร์สเรียนไอที</span>
+                            <span class="lang-en">Technical Courses</span>
+                        </span>
+                        <h3 class="cert-title">Container Technology (Docker & K8s)</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการฝึกอบรมหลักสูตร Container Technology (Docker, Kubernetes)
+                                สำหรับนักศึกษาวิศวกรรมคอมพิวเตอร์ จำนวน 12 ชั่วโมง</span>
+                            <span class="lang-en">Completed a 12-hour Container Technology (Docker, Kubernetes) training
+                                course for computer engineering students.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 8-9 Mar 2568</span>
+                            <span class="cert-badge">PSRU</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 14: Cisco Python Essentials 1 -->
+                <div class="cert-card glass-panel" data-category="course">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/PythonEssentials1Update20251202_29_le4v6w.png"
+                            alt="Cisco Python Essentials 1 Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">คอร์สเรียนไอที</span>
+                            <span class="lang-en">Technical Courses</span>
+                        </span>
+                        <h3 class="cert-title">Python Essentials 1</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">สำเร็จการศึกษาหลักสูตรภาษาไพธอนพื้นฐาน Python Essentials 1 จาก Cisco
+                                Networking Academy และ OpenEDG Python Institute</span>
+                            <span class="lang-en">Graduated from the fundamental Python Essentials 1 course by Cisco
+                                Networking Academy and OpenEDG Python Institute.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 2 Dec 2025</span>
+                            <span class="cert-badge">Cisco</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 15: Huawei Python Programming Basics -->
+                <div class="cert-card glass-panel" data-category="course">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/profile_photo.png" alt="Huawei Python Programming Basics Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">คอร์สเรียนไอที</span>
+                            <span class="lang-en">Technical Courses</span>
+                        </span>
+                        <h3 class="cert-title">Python Programming Basics</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">สำเร็จการศึกษาและได้รับใบประกาศนียบัตรหลักสูตร Python Programming
+                                Basics จากสถาบันเทคโนโลยีหัวเว่ย (Huawei ICT Academy)</span>
+                            <span class="lang-en">Successfully completed and received certification in Python
+                                Programming Basics from the Huawei ICT Academy.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 2025</span>
+                            <span class="cert-badge">Huawei</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 16: Basic Cybersecurity MOOC -->
+                <div class="cert-card glass-panel" data-category="course">
+                    <div class="cert-card-status"><span class="status-indicator-dot"></span> SECURE // VERIFIED</div>
+                    <div class="cert-image-container">
+                        <img src="images/สำเนาของ_certificate_240830_100330.png"
+                            alt="NCSA Basic Cybersecurity Certificate">
+                        <div class="cert-overlay">
+                            <span class="view-badge">
+                                <span class="lang-th">ดูเกียรติบัตร</span>
+                                <span class="lang-en">View Certificate</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-category">
+                            <span class="lang-th">คอร์สเรียนไอที</span>
+                            <span class="lang-en">Technical Courses</span>
+                        </span>
+                        <h3 class="cert-title">Basic Cybersecurity</h3>
+                        <p class="cert-desc">
+                            <span class="lang-th">ผ่านการเรียนหลักสูตรความปลอดภัยไซเบอร์เบื้องต้น (Basic Cybersecurity)
+                                และได้รับใบรับรองอย่างเป็นทางการ</span>
+                            <span class="lang-en">Completed the Basic Cybersecurity course and received an official
+                                certification from NCSA.</span>
+                        </p>
+                        <div class="cert-meta">
+                            <span class="cert-date"><i class="far fa-calendar-alt"></i> 29 Aug 2024</span>
+                            <span class="cert-badge">NCSA</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- Lightbox Modal --- -->
+    <div class="modal" id="modal">
+        <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+        <button class="modal-nav prev" id="modal-prev" aria-label="Previous image"><i
+                class="fas fa-chevron-left"></i></button>
+        <button class="modal-nav next" id="modal-next" aria-label="Next image"><i
+                class="fas fa-chevron-right"></i></button>
+        <div class="modal-content-wrapper">
+            <div class="modal-img-container">
+                <img src="" alt="Fullscreen Certificate" id="modal-img">
+            </div>
+            <div class="modal-details">
+                <h4 id="modal-title">Certificate Title</h4>
+                <p id="modal-desc">Certificate Description</p>
+                <div class="modal-thumbnails" id="modal-thumbnails"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- Footer --- -->
+    <footer>
+        <div class="container footer-content">
+            <a href="#" class="footer-logo">
+                <span>SEC</span>.Sakaowan
+            </a>
+            <p class="footer-desc">
+                <span class="lang-th">&copy; 2026 สกาววรรณ บูรณะวาทศิลป์ สงวนลิขสิทธิ์ | พัฒนาร่วมกับทีม
+                    whereisTheFlag</span>
+                <span class="lang-en">&copy; 2026 Sakaowan Buranawatasing. All rights reserved. | Built in cooperation
+                    with team whereisTheFlag.</span>
+            </p>
+            <div class="footer-socials">
+                <a href="mailto:sakaowan.b@psur.ac.th" class="footer-social-link" title="Email"><i
+                        class="fas fa-envelope"></i></a>
+                <a href="tel:0954847391" class="footer-social-link" title="Phone"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="cyber-canvas.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
