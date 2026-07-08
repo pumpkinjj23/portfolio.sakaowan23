@@ -32,13 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Sticky Header Scroll Effect
     // ==========================================
     const header = document.querySelector('header');
+    let isScrolled = false;
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        const scrolled = window.scrollY > 50;
+        if (scrolled !== isScrolled) {
+            isScrolled = scrolled;
+            if (isScrolled) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
-    });
+    }, { passive: true });
 
     // ==========================================
     // 3. Cyber Terminal Typing Simulation

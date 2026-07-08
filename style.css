@@ -42,7 +42,6 @@ body {
     font-family: var(--font-body);
     overflow-x: hidden;
     line-height: 1.6;
-    background-attachment: fixed;
 }
 
 /* --- Aurora Background Glow --- */
@@ -61,9 +60,8 @@ body {
 .aurora-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.15;
-    mix-blend-mode: screen;
+    filter: blur(80px);
+    opacity: 0.12;
     pointer-events: none;
     transform: translate3d(0, 0, 0); /* Force GPU acceleration */
     will-change: transform;
