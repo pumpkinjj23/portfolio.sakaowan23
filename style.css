@@ -28,12 +28,16 @@
     --transition-smooth: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+}
+
 /* --- Resets & Base Styles --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
 }
 
 body {
@@ -123,21 +127,6 @@ body {
     pointer-events: none;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-darker);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color-purple);
-    border-radius: 4px;
-    border: 2px solid var(--bg-darker);
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-cyan);
-}
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
