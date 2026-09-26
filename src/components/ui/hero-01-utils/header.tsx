@@ -66,11 +66,8 @@ export default function Header({
             <div className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse border-2 border-background" />
           </div>
           <div className="flex flex-col">
-            <span className="font-mono text-sm sm:text-base font-bold tracking-tight text-foreground group-hover:text-cyan-400 transition-colors flex items-center gap-1.5">
-              <span>SAKAOWAN.B</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hidden sm:inline-block">
-                SEC_v2.0
-              </span>
+            <span className="font-mono text-sm sm:text-base font-bold tracking-tight text-foreground group-hover:text-cyan-400 transition-colors">
+              SAKAOWAN.B
             </span>
             <span className="text-[11px] text-muted-foreground font-sans hidden sm:block">
               {lang === "th" ? "วิศวกรรมความมั่นคงปลอดภัยไซเบอร์" : "Cybersecurity & Software Testing"}
