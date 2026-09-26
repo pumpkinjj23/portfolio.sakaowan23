@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const typedTextSpan = document.getElementById('typed-text');
     
     const terminalCommands = [
-        { cmd: 'whoami', output: 'sakaowan_buranawatasing' },
-        { cmd: 'cat education.txt', output: 'Pibulsongkram Rajabhat University (PSRU)\nFaculty of Industrial Technology\nComputer Engineering, Year 4' },
+        { cmd: 'whoami', output: 'sakaowan_buranavatasin' },
+        { cmd: 'cat education.txt', output: 'Pibulsongkram Rajabhat University (PSRU)\nFaculty of Industrial Technology\nComputer Engineering & Digital Technology, Year 4' },
         { cmd: 'cat teams.txt', output: 'whereisTheFlag\nCPE00\nCPE66\nจจฉายเดี่ยว' },
         { cmd: 'python -c "import secret; print(secret.flag)"', output: 'FLAG{Cyber_Security_PSRU_CPE_2026}' }
     ];
@@ -434,8 +434,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update document title
         const pageTitles = {
-            th: "Sakaowan Buranawatasing | Cyber Security Portfolio",
-            en: "Sakaowan Buranawatasing | Cyber Security Portfolio"
+            th: "Sakaowan Buranavatasin | Cyber Security & Software Testing Portfolio",
+            en: "Sakaowan Buranavatasin | Cyber Security & Software Testing Portfolio"
         };
         if (pageTitles[lang]) {
             document.title = pageTitles[lang];
