@@ -11,6 +11,14 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Pre-init Theme script to prevent flashing -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    
     <style>
         .gallery-header {
             text-align: center;
@@ -52,7 +60,7 @@
             object-fit: cover;
         }
         .back-btn-wrapper {
-            margin-bottom: 24px;
+            margin-bottom: 0;
         }
         .back-btn {
             display: inline-flex;
@@ -83,12 +91,16 @@
     <canvas id="bg-canvas"></canvas>
 
     <div class="container gallery-container">
-        <header style="position: static; background: transparent; border: none; padding: 20px 0; backdrop-filter: none;">
+        <header style="position: static; background: transparent; border: none; padding: 20px 0; backdrop-filter: none; display: flex; justify-content: space-between; align-items: center;">
             <div class="back-btn-wrapper">
                 <a href="index.html" class="back-btn">
                     <i class="fas fa-arrow-left"></i> ย้อนกลับไปหน้าหลัก / Back to Home
                 </a>
             </div>
+            <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+                <i class="fas fa-sun theme-icon-sun"></i>
+                <i class="fas fa-moon theme-icon-moon"></i>
+            </button>
         </header>
 
         <div class="gallery-header">
@@ -261,5 +273,17 @@
 
     <!-- JavaScript -->
     <script src="cyber-canvas.js"></script>
+    <script>
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('portfolio-theme', newTheme);
+                window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: newTheme } }));
+            });
+        }
+    </script>
 </body>
 </html>

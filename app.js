@@ -455,11 +455,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
+    // 8. Dark / Light Theme Switcher System
+    // ==========================================
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('portfolio-theme', theme);
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+    }
+    
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    setTheme(savedTheme);
+    
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    }
+
+    // ==========================================
     // Skills Card Accordion Toggle
     // ==========================================
     const skillsCards = document.querySelectorAll('.skills-card-new');
     skillsCards.forEach((card, index) => {
-        // Expand the first card (Web Development) by default
+        // Expand the first card by default
         if (index === 0) {
             card.classList.add('expanded');
         }

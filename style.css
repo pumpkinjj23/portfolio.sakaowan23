@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 /* --- Theme Variables --- */
-:root {
+:root, [data-theme="dark"] {
     --bg-main: #0a0e17;
     --bg-darker: #05070c;
-    --bg-glass: rgba(13, 18, 30, 0.55);
+    --bg-glass: rgba(13, 18, 30, 0.65);
+    --bg-glass-card: rgba(13, 18, 30, 0.88);
+    --bg-glass-card-hover: rgba(16, 22, 38, 0.95);
     --bg-terminal: #0e1322;
+    --bg-card-header: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
     
     --color-cyan: #38bdf8; /* Soft Sky Blue */
     --color-purple: #818cf8; /* Soft Lavender/Indigo */
@@ -14,12 +17,18 @@
     --color-text-primary: #f8fafc;
     --color-text-secondary: #cbd5e1; /* Slightly brighter, softer gray */
     --color-text-muted: #64748b;
-    --color-border: rgba(129, 140, 248, 0.12);
-    --color-border-glass: rgba(255, 255, 255, 0.04);
+    --color-border: rgba(129, 140, 248, 0.15);
+    --color-border-glass: rgba(255, 255, 255, 0.06);
     
     --shadow-cyan: 0 8px 30px rgba(56, 189, 248, 0.15);
     --shadow-purple: 0 8px 30px rgba(129, 140, 248, 0.15);
     --shadow-green: 0 8px 30px rgba(52, 211, 153, 0.12);
+    --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    --nav-bg: rgba(10, 14, 26, 0.75);
+    --header-scrolled-bg: #05070c;
+    --chip-bg: rgba(255, 255, 255, 0.03);
+    --chip-border: rgba(255, 255, 255, 0.08);
     
     --font-heading: 'Outfit', sans-serif;
     --font-accent: 'Outfit', sans-serif;
@@ -28,9 +37,38 @@
     --transition-smooth: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+[data-theme="light"] {
+    --bg-main: #f1f5f9; /* Slate 100 clean background */
+    --bg-darker: #e2e8f0; /* Slate 200 */
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --bg-glass-card: rgba(255, 255, 255, 0.95);
+    --bg-glass-card-hover: #ffffff;
+    --bg-terminal: #0f172a; /* Slate 900 terminal remains crisp and authentic */
+    --bg-card-header: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+    
+    --color-cyan: #0284c7; /* Sky 600 - High contrast readable */
+    --color-purple: #6366f1; /* Indigo 500 */
+    --color-purple-dark: #4f46e5;
+    --color-green: #059669; /* Emerald 600 */
+    --color-text-primary: #0f172a; /* Slate 900 */
+    --color-text-secondary: #334155; /* Slate 700 */
+    --color-text-muted: #64748b; /* Slate 500 */
+    --color-border: rgba(99, 102, 241, 0.2);
+    --color-border-glass: rgba(0, 0, 0, 0.08);
+    
+    --shadow-cyan: 0 8px 25px rgba(2, 132, 199, 0.15);
+    --shadow-purple: 0 8px 25px rgba(99, 102, 241, 0.15);
+    --shadow-green: 0 8px 25px rgba(5, 150, 105, 0.12);
+    --shadow-card: 0 8px 30px 0 rgba(15, 23, 42, 0.07);
+    
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    --header-scrolled-bg: #ffffff;
+    --chip-bg: rgba(0, 0, 0, 0.03);
+    --chip-border: rgba(0, 0, 0, 0.08);
+}
+
 html {
     scroll-behavior: smooth;
-    color-scheme: dark;
 }
 
 /* --- Resets & Base Styles --- */
@@ -1327,6 +1365,210 @@ html[lang="th"] .lang-en {
 .lang-divider {
     color: var(--color-text-muted);
     font-weight: 400;
+}
+
+/* --- Theme Toggle Button --- */
+.nav-theme-item {
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-glass);
+    color: var(--color-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+    outline: none;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--color-cyan);
+    box-shadow: var(--shadow-cyan);
+    transform: scale(1.08) rotate(15deg);
+    background: rgba(56, 189, 248, 0.1);
+}
+
+[data-theme="dark"] .theme-icon-moon {
+    display: none;
+}
+[data-theme="dark"] .theme-icon-sun {
+    display: inline-block;
+    color: #facc15; /* Golden Sun */
+}
+
+[data-theme="light"] .theme-icon-sun {
+    display: none;
+}
+[data-theme="light"] .theme-icon-moon {
+    display: inline-block;
+    color: var(--color-purple); /* Indigo Moon */
+}
+
+/* --- Light Mode System Overrides --- */
+[data-theme="light"] body {
+    background-color: var(--bg-main);
+    color: var(--color-text-primary);
+}
+
+[data-theme="light"] .aurora-bg {
+    background: radial-gradient(circle at 50% 50%, #e0e7ff, #f1f5f9);
+}
+
+[data-theme="light"] .blob-1 {
+    opacity: 0.22;
+    background: radial-gradient(circle, rgba(165, 180, 252, 0.8) 0%, rgba(199, 210, 254, 0) 70%);
+}
+
+[data-theme="light"] .blob-2 {
+    opacity: 0.22;
+    background: radial-gradient(circle, rgba(186, 230, 253, 0.8) 0%, rgba(224, 242, 254, 0) 70%);
+}
+
+[data-theme="light"] .blob-3 {
+    opacity: 0.18;
+    background: radial-gradient(circle, rgba(167, 243, 208, 0.8) 0%, rgba(209, 250, 229, 0) 70%);
+}
+
+[data-theme="light"] .glass-panel {
+    background: var(--bg-glass-card);
+    border: 1px solid var(--color-border-glass);
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="light"] .glass-panel:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 12px 35px 0 rgba(99, 102, 241, 0.12);
+}
+
+[data-theme="light"] header {
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--color-border-glass);
+}
+
+[data-theme="light"] header.scrolled {
+    background: var(--header-scrolled-bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .hud-status-bar {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .hero {
+    background: radial-gradient(circle at 50% 50%, rgba(224, 231, 255, 0.5) 0%, var(--bg-main) 100%);
+}
+
+[data-theme="light"] .cert-card-status {
+    background: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .gpa-box {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .skills-card-new {
+    background: var(--bg-glass-card);
+    border: 1px solid var(--color-border-glass);
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="light"] .skills-card-new:hover {
+    border-color: rgba(2, 132, 199, 0.4);
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.1);
+}
+
+[data-theme="light"] .skills-card-new.expanded {
+    background: var(--bg-glass-card-hover);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.12);
+}
+
+[data-theme="light"] .skills-header-new {
+    background: var(--bg-card-header);
+}
+
+[data-theme="light"] .skill-tag-badge,
+[data-theme="light"] .exp-chip {
+    background: var(--chip-bg);
+    border: 1px solid var(--chip-border);
+    color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .skill-tag-badge:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--color-purple);
+    color: var(--color-purple-dark);
+}
+
+[data-theme="light"] .exp-card {
+    background: var(--bg-glass-card);
+    border: 1px solid var(--color-border-glass);
+}
+
+[data-theme="light"] .exp-subitem {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .filter-btn {
+    background: var(--bg-glass);
+    border: 1px solid var(--color-border-glass);
+    color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .filter-btn:hover,
+[data-theme="light"] .filter-btn.active {
+    background: rgba(2, 132, 199, 0.08);
+    border-color: var(--color-cyan);
+    color: var(--color-cyan);
+}
+
+[data-theme="light"] footer {
+    background: var(--header-scrolled-bg);
+    border-top: 1px solid var(--color-border-glass);
+}
+
+[data-theme="light"] .contact-icon {
+    background: rgba(2, 132, 199, 0.08);
+    border-color: rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="light"] .btn-secondary {
+    border-color: var(--color-cyan);
+    color: var(--color-cyan);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: rgba(2, 132, 199, 0.08);
+}
+
+[data-theme="light"] .theme-toggle-btn {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .theme-toggle-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--color-purple);
+    box-shadow: var(--shadow-purple);
+}
+
+@media (max-width: 768px) {
+    [data-theme="light"] .nav-menu {
+        background: var(--bg-main);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
 }
 
 /* --- Cyber Command HUD Additions --- */

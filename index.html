@@ -18,6 +18,14 @@
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Pre-init Theme script to prevent flashing -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
 </head>
 
 <body>
@@ -74,6 +82,12 @@
                         <span class="lang-divider">|</span>
                         <button class="lang-btn" data-lang="en">EN</button>
                     </div>
+                </li>
+                <li class="nav-theme-item">
+                    <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+                        <i class="fas fa-sun theme-icon-sun"></i>
+                        <i class="fas fa-moon theme-icon-moon"></i>
+                    </button>
                 </li>
             </ul>
         </div>

@@ -122,11 +122,7 @@ class CyberBackground {
         if (this.maxParticles < 15) this.maxParticles = 15; // Mobile limit
 
         this.particles = [];
-        const themeColors = [
-            'rgba(129, 140, 248, 0.55)', // Soft purple
-            'rgba(56, 189, 248, 0.55)',  // Soft sky blue
-            'rgba(52, 211, 153, 0.45)'   // Soft green
-        ];
+        this.updateThemeColors();
 
         for (let i = 0; i < this.maxParticles; i++) {
             const x = Math.random() * this.canvas.width;
@@ -135,10 +131,35 @@ class CyberBackground {
             const vx = (Math.random() - 0.5) * 0.15;
             const vy = (Math.random() * 0.5 + 0.2) * this.baseSpeed;
             const size = Math.random() * 2 + 1.2;
-            const color = themeColors[Math.floor(Math.random() * themeColors.length)];
+            const color = this.themeColors[Math.floor(Math.random() * this.themeColors.length)];
             const isBinary = Math.random() > 0.65; // Some are binary characters, some are dots
 
             this.particles.push(new Particle(x, y, vx, vy, size, color, isBinary));
+        }
+    }
+
+    updateThemeColors() {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+            this.themeColors = [
+                'rgba(99, 102, 241, 0.45)', // Indigo
+                'rgba(2, 132, 199, 0.45)',  // Sky blue
+                'rgba(5, 150, 105, 0.4)'    // Emerald
+            ];
+            this.spotlightColors = [
+                'rgba(99, 102, 241, 0.06)',
+                'rgba(2, 132, 199, 0.02)'
+            ];
+        } else {
+            this.themeColors = [
+                'rgba(129, 140, 248, 0.55)', // Soft purple
+                'rgba(56, 189, 248, 0.55)',  // Soft sky blue
+                'rgba(52, 211, 153, 0.45)'   // Soft green
+            ];
+            this.spotlightColors = [
+                'rgba(129, 140, 248, 0.07)',
+                'rgba(56, 189, 248, 0.02)'
+            ];
         }
     }
 
@@ -151,6 +172,13 @@ class CyberBackground {
         window.addEventListener('resize', () => {
             this.resize();
             this.init();
+        });
+
+        window.addEventListener('themechange', () => {
+            this.updateThemeColors();
+            this.particles.forEach(p => {
+                p.color = this.themeColors[Math.floor(Math.random() * this.themeColors.length)];
+            });
         });
 
         window.addEventListener('mousemove', (e) => {
@@ -185,9 +213,9 @@ class CyberBackground {
 
     spawnBurst(x, y) {
         const burstCount = 10;
-        const colors = [
-            'rgba(56, 189, 248, 0.75)', // Soft sky blue
-            'rgba(129, 140, 248, 0.75)'  // Soft purple
+        const colors = this.themeColors || [
+            'rgba(56, 189, 248, 0.75)',
+            'rgba(129, 140, 248, 0.75)'
         ];
         for (let i = 0; i < burstCount; i++) {
             const angle = Math.random() * Math.PI * 2;
@@ -218,8 +246,12 @@ class CyberBackground {
                 this.mouseX, this.mouseY, 15,
                 this.mouseX, this.mouseY, glowSize
             );
-            grad.addColorStop(0, 'rgba(129, 140, 248, 0.07)');
-            grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.02)');
+            const spotlightColors = this.spotlightColors || [
+                'rgba(129, 140, 248, 0.07)',
+                'rgba(56, 189, 248, 0.02)'
+            ];
+            grad.addColorStop(0, spotlightColors[0]);
+            grad.addColorStop(0.5, spotlightColors[1]);
             grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
             this.ctx.fillStyle = grad;
