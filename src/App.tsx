@@ -8,6 +8,7 @@ import ExperienceSection from "@/components/experience-section"
 import CertificatesSection from "@/components/certificates-section"
 import CertificateModal from "@/components/certificate-modal"
 import ImageLightbox from "@/components/image-lightbox"
+import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import { portfolioData, type CertItem } from "@/data/portfolioData"
 
@@ -127,6 +128,7 @@ export default function App() {
           lang={lang}
           onSelectCert={(cert) => setSelectedCert(cert)}
         />
+        <ContactSection lang={lang} />
         <Footer lang={lang} />
       </div>
 

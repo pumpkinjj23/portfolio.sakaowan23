@@ -76,6 +76,11 @@ export default function Footer({ lang = "en" }: FooterProps) {
                   // 06. 23+ Certificates
                 </a>
               </li>
+              <li>
+                <a href="#contact" className="hover:text-cyan-400 transition-colors">
+                  // 07. Contact & Connect
+                </a>
+              </li>
             </ul>
           </div>
 

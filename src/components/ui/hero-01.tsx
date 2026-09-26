@@ -39,6 +39,10 @@ export default function AgencyHeroSection({
       title: "Certificates",
       href: "#certificates",
     },
+    {
+      title: "Contact",
+      href: "#contact",
+    },
   ],
   avatarList = [
     {

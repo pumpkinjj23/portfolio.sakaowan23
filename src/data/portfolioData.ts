@@ -139,6 +139,7 @@ export const portfolioData: PortfolioData = {
     { title: "Projects", titleTh: "โครงงาน", href: "#projects" },
     { title: "Experience", titleTh: "ประสบการณ์", href: "#experience" },
     { title: "Certificates", titleTh: "เกียรติบัตร", href: "#certificates" },
+    { title: "Contact", titleTh: "ติดต่อ", href: "#contact" },
   ],
 
   teamAvatars: [
