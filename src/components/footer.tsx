@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import {
   Shield,
@@ -12,7 +14,6 @@ import {
   Send,
   MessageSquare,
   FileText,
-  CheckCircle2,
   Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -64,10 +65,10 @@ export default function Footer({ lang = "en" }: FooterProps) {
           </p>
         </div>
 
-        {/* Main Grid */}
+        {/* Main Grid: 2 Balanced Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 border-b border-border/80">
-          {/* Left Column (6 cols): Brand & Direct Contact Cards */}
-          <div className="lg:col-span-6 space-y-4">
+          {/* Left Column (7 cols): Brand & Direct Contact Interactive Boxes */}
+          <div className="lg:col-span-7 space-y-4">
             {/* Brand Header */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
@@ -162,80 +163,24 @@ export default function Footer({ lang = "en" }: FooterProps) {
                 </a>
               </div>
             </div>
-
-            {/* Status Line */}
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono pt-1 text-muted-foreground">
-              <span className="text-cyan-600 dark:text-cyan-400 font-bold">GPAX: 3.78</span>
-              <span>•</span>
-              <span className="text-purple-600 dark:text-purple-400 font-bold">MAJOR GPA: 3.88</span>
-              <span>•</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>OPEN FOR WORK</span>
-              </span>
-            </div>
           </div>
 
-          {/* Center Column (3 cols): Quick Navigation */}
-          <div className="lg:col-span-3 space-y-3">
-            <span className="text-xs font-mono font-bold text-foreground uppercase tracking-wider block">
-              {lang === "th" ? "เมนูด่วน" : "QUICK NAVIGATION"}
-            </span>
-            <ul className="space-y-2 text-xs font-mono text-muted-foreground">
-              <li>
-                <a href="#hero" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 01. Home & Status
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 02. About & Education
-                </a>
-              </li>
-              <li>
-                <a href="#skills" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 03. Technical Matrix
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 04. Featured Projects
-                </a>
-              </li>
-              <li>
-                <a href="#experience" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 05. CTF & Milestones
-                </a>
-              </li>
-              <li>
-                <a href="#certificates" className="hover:text-cyan-500 transition-colors font-medium">
-                  // 06. 23+ Certificates
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-cyan-600 dark:text-cyan-400 font-bold">
-                  // 07. Contact & Connect
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Right Column (3 cols): Documents & Social Links */}
-          <div className="lg:col-span-3 space-y-3">
+          {/* Right Column (5 cols): Documents & Social Links */}
+          <div className="lg:col-span-5 space-y-3">
             <span className="text-xs font-mono font-bold text-foreground uppercase tracking-wider block">
               {lang === "th" ? "เอกสาร & ช่องทางออนไลน์" : "DOCUMENTS & LINKS"}
             </span>
-            <ul className="space-y-2 text-xs font-mono text-muted-foreground">
+            <ul className="space-y-2.5 text-xs font-mono text-muted-foreground">
               <li>
                 <a
                   href={p.cvPdf}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cyan-500 transition-colors flex items-center gap-2 p-2 rounded-lg bg-secondary/50 border border-border text-foreground font-semibold"
+                  className="hover:text-cyan-500 transition-colors flex items-center gap-2.5 p-3 rounded-xl bg-secondary/50 border border-border text-foreground font-semibold hover:border-cyan-500/40"
                 >
-                  <FileText className="w-4 h-4 text-cyan-500" />
-                  <span>Resume / CV (PDF)</span>
-                  <ExternalLink className="w-3 h-3 ml-auto text-muted-foreground" />
+                  <FileText className="w-4 h-4 text-cyan-500 shrink-0" />
+                  <span>Download Resume / CV (PDF)</span>
+                  <ExternalLink className="w-3.5 h-3.5 ml-auto text-muted-foreground" />
                 </a>
               </li>
               <li>
@@ -243,11 +188,11 @@ export default function Footer({ lang = "en" }: FooterProps) {
                   href={p.transcriptPdf}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cyan-500 transition-colors flex items-center gap-2 p-2 rounded-lg bg-secondary/50 border border-border text-foreground font-semibold"
+                  className="hover:text-cyan-500 transition-colors flex items-center gap-2.5 p-3 rounded-xl bg-secondary/50 border border-border text-foreground font-semibold hover:border-cyan-500/40"
                 >
-                  <Sparkles className="w-4 h-4 text-purple-500" />
-                  <span>Transcript (3.78)</span>
-                  <ExternalLink className="w-3 h-3 ml-auto text-muted-foreground" />
+                  <Sparkles className="w-4 h-4 text-purple-500 shrink-0" />
+                  <span>Official Transcript (GPAX 3.78)</span>
+                  <ExternalLink className="w-3.5 h-3.5 ml-auto text-muted-foreground" />
                 </a>
               </li>
               <li>
@@ -255,17 +200,17 @@ export default function Footer({ lang = "en" }: FooterProps) {
                   href={p.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cyan-500 transition-colors flex items-center gap-2 p-2 rounded-lg bg-secondary/50 border border-border text-foreground font-semibold"
+                  className="hover:text-cyan-500 transition-colors flex items-center gap-2.5 p-3 rounded-xl bg-secondary/50 border border-border text-foreground font-semibold hover:border-cyan-500/40"
                 >
-                  <Github className="w-4 h-4 text-foreground" />
-                  <span className="truncate">{p.githubUsername}</span>
-                  <ExternalLink className="w-3 h-3 ml-auto text-muted-foreground" />
+                  <Github className="w-4 h-4 text-foreground shrink-0" />
+                  <span className="truncate">github.com/{p.githubUsername}</span>
+                  <ExternalLink className="w-3.5 h-3.5 ml-auto text-muted-foreground" />
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-2 p-2 rounded-lg bg-secondary/30 border border-border/60 text-muted-foreground text-[11px]">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-secondary/30 border border-border/60 text-muted-foreground text-xs">
                   <MapPin className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                  <span className="line-clamp-2">{lang === "th" ? p.addressTh : p.address}</span>
+                  <span className="line-clamp-2 leading-relaxed">{lang === "th" ? p.addressTh : p.address}</span>
                 </div>
               </li>
             </ul>
