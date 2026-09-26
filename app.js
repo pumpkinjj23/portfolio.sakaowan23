@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const terminalCommands = [
         { cmd: 'whoami', output: 'sakaowan_buranavatasin' },
-        { cmd: 'cat education.txt', output: 'Pibulsongkram Rajabhat University (PSRU)\nFaculty of Industrial Technology\nComputer Engineering & Digital Technology, Year 4' },
+        { cmd: 'cat education.txt', output: 'Pibulsongkram Rajabhat University (PSRU)\nFaculty of Industrial Technology\nComputer Engineering, Year 4' },
         { cmd: 'cat teams.txt', output: 'whereisTheFlag\nCPE00\nCPE66\nจจฉายเดี่ยว' },
         { cmd: 'python -c "import secret; print(secret.flag)"', output: 'FLAG{Cyber_Security_PSRU_CPE_2026}' }
     ];

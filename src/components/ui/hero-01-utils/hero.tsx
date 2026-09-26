@@ -127,7 +127,7 @@ export default function HeroSection({
                   </>
                 ) : (
                   <>
-                    <strong className="text-foreground">Sakaowan Buranavatasin (Jubjang)</strong> — Final-Year Computer Engineering & Digital Technology Student at PSRU (GPAX 3.78 / Major 3.88). Specialized in Web Security, Cryptography, CTF Competitions & Security QA Testing.
+                    <strong className="text-foreground">Sakaowan Buranavatasin (Jubjang)</strong> — Final-Year Computer Engineering Student at PSRU (GPAX 3.78 / Major 3.88). Specialized in Web Security, Cryptography, CTF Competitions & Security QA Testing.
                   </>
                 )}
               </p>
@@ -354,7 +354,7 @@ export default function HeroSection({
                       </div>
                       <div className="text-[11px] text-muted-foreground leading-normal p-2 rounded bg-secondary/50 border border-border/50 flex items-center gap-2">
                         <Cpu className="w-4 h-4 text-cyan-400 shrink-0" />
-                        <span>High First-Class Honors Track in Computer Engineering & Digital Technology</span>
+                        <span>High First-Class Honors Track in Computer Engineering</span>
                       </div>
                     </div>
                   )}

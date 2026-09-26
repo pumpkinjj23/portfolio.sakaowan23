@@ -79,7 +79,7 @@ export default function Footer({ lang = "en" }: FooterProps) {
                   SAKAOWAN BURANAVATASIN
                 </span>
                 <span className="text-xs text-muted-foreground font-sans">
-                  {lang === "th" ? "วิศวกรรมคอมพิวเตอร์และเทคโนโลยีดิจิทัล (PSRU)" : "Computer Engineering & Digital Technology (PSRU)"}
+                  {lang === "th" ? "วิศวกรรมคอมพิวเตอร์ (PSRU)" : "Computer Engineering (PSRU)"}
                 </span>
               </div>
             </div>
