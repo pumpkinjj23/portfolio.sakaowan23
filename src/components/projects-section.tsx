@@ -43,42 +43,47 @@ export default function ProjectsSection({
 
         {/* Project Selector Tabs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          {projects.map((proj) => (
-            <button
-              key={proj.id}
-              onClick={() => setActiveProject(proj.id)}
-              className={`p-4 rounded-xl text-left border transition-all duration-300 flex flex-col justify-between ${
-                activeProject === proj.id
-                  ? "bg-secondary border-cyan-500/60 shadow-lg shadow-cyan-500/10 scale-[1.02]"
-                  : "bg-card/50 border-border hover:border-border/80 hover:bg-secondary/40"
-              }`}
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Badge
-                    variant={activeProject === proj.id ? "cyber" : "secondary"}
-                    className="text-[10px]"
-                  >
-                    {proj.badge}
-                  </Badge>
-                  <span className="text-[11px] font-mono text-muted-foreground">
-                    {proj.period}
-                  </span>
+          {projects.map((proj) => {
+            const isActive = activeProject === proj.id
+            return (
+              <button
+                key={proj.id}
+                onClick={() => setActiveProject(proj.id)}
+                className={`p-4 rounded-xl text-left border transition-all duration-300 flex flex-col justify-between ${
+                  isActive
+                    ? "bg-card border-cyan-400 shadow-xl shadow-cyan-500/15 ring-2 ring-cyan-500/30 scale-[1.02]"
+                    : "bg-card/70 border-border hover:border-cyan-500/40 hover:bg-card"
+                }`}
+              >
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <Badge
+                      variant={isActive ? "cyber" : "outline"}
+                      className="text-[10px]"
+                    >
+                      {proj.badge}
+                    </Badge>
+                    <span className="text-[11px] font-mono text-muted-foreground font-semibold">
+                      {proj.period}
+                    </span>
+                  </div>
+                  <h3 className={`font-bold text-sm line-clamp-1 transition-colors ${
+                    isActive ? "text-cyan-600 dark:text-cyan-300" : "text-foreground"
+                  }`}>
+                    {lang === "th" ? proj.titleTh : proj.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2 font-medium">
+                    {lang === "th" ? proj.categoryTh : proj.category}
+                  </p>
                 </div>
-                <h3 className="font-bold text-sm text-foreground line-clamp-1">
-                  {lang === "th" ? proj.titleTh : proj.title}
-                </h3>
-                <p className="text-xs text-muted-foreground line-clamp-2">
-                  {lang === "th" ? proj.categoryTh : proj.category}
-                </p>
-              </div>
 
-              <div className="pt-3 flex items-center text-xs font-mono text-cyan-400 font-semibold gap-1">
-                <span>{lang === "th" ? "ดูรายละเอียด" : "Inspect Case Study"}</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </div>
-            </button>
-          ))}
+                <div className="pt-4 flex items-center text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold gap-1">
+                  <span>{lang === "th" ? "ดูรายละเอียด" : "Inspect Case Study"}</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </button>
+            )
+          })}
         </div>
 
         {/* Active Project Detail View */}
@@ -93,7 +98,7 @@ export default function ProjectsSection({
                     {lang === "th" ? current.categoryTh : current.category}
                   </span>
                   <span className="text-muted-foreground">•</span>
-                  <span className="text-xs font-mono text-cyan-400">
+                  <span className="text-xs font-mono text-cyan-600 dark:text-cyan-300 font-semibold">
                     {lang === "th" ? current.roleTh : current.role}
                   </span>
                 </div>
@@ -103,27 +108,27 @@ export default function ProjectsSection({
               </div>
 
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className="font-mono text-xs">
+                <Badge variant="outline" className="font-mono text-xs font-semibold">
                   {current.period}
                 </Badge>
               </div>
             </div>
 
             {/* Description */}
-            <div className="text-sm leading-relaxed text-muted-foreground font-sans">
+            <div className="text-sm sm:text-base leading-relaxed text-foreground/90 font-sans">
               <p>{lang === "th" ? current.descriptionTh : current.description}</p>
             </div>
 
             {/* Tags */}
-            <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-foreground block">
+            <div className="space-y-2.5">
+              <span className="text-xs font-mono font-bold text-foreground block uppercase tracking-wider">
                 TECHNOLOGY & METHODOLOGY STACK:
               </span>
               <div className="flex flex-wrap gap-2">
                 {current.tags.map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className="px-2.5 py-1 rounded-md bg-secondary/80 border border-border text-[11px] font-mono text-cyan-400 dark:text-cyan-300"
+                    className="px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-mono text-cyan-700 dark:text-cyan-300 font-semibold"
                   >
                     #{tag}
                   </span>

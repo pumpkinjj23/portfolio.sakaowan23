@@ -70,10 +70,10 @@ export default function AboutSection({ lang = "en" }: AboutSectionProps) {
                   <h3 className="text-lg font-bold text-foreground">
                     {lang === "th" ? p.nameTh : p.name}
                   </h3>
-                  <p className="text-xs font-mono text-cyan-400 font-medium">
+                  <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-semibold">
                     {lang === "th" ? `ชื่อเล่น: ${p.nicknameTh} | อายุ ${p.ageTh}` : `Nickname: ${p.nickname} | Age ${p.age}`}
                   </p>
-                  <p className="text-xs text-muted-foreground pt-1">
+                  <p className="text-xs text-foreground/80 pt-1 font-medium">
                     {lang === "th" ? p.roleTh : p.role}
                   </p>
                 </div>
@@ -81,25 +81,25 @@ export default function AboutSection({ lang = "en" }: AboutSectionProps) {
                 {/* GPA Highlight Grid */}
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
-                    <span className="text-[10px] font-mono text-cyan-400 block uppercase">
+                    <span className="text-[10px] font-mono text-cyan-700 dark:text-cyan-300 block uppercase font-bold">
                       Overall GPAX
                     </span>
-                    <span className="text-2xl font-black text-cyan-400 font-mono">
+                    <span className="text-2xl font-black text-cyan-600 dark:text-cyan-400 font-mono">
                       {p.gpax}
                     </span>
-                    <span className="text-[10px] text-muted-foreground block">
+                    <span className="text-[10px] text-foreground/80 block font-medium">
                       PSRU Honor Track
                     </span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-center">
-                    <span className="text-[10px] font-mono text-purple-400 block uppercase">
+                    <span className="text-[10px] font-mono text-purple-700 dark:text-purple-300 block uppercase font-bold">
                       Major GPA
                     </span>
-                    <span className="text-2xl font-black text-purple-400 font-mono">
+                    <span className="text-2xl font-black text-purple-600 dark:text-purple-400 font-mono">
                       {p.majorGpa}
                     </span>
-                    <span className="text-[10px] text-muted-foreground block">
+                    <span className="text-[10px] text-foreground/80 block font-medium">
                       Comp Engineering
                     </span>
                   </div>

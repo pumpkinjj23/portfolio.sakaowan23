@@ -64,19 +64,22 @@ export default function CertificatesSection({
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
           {/* Categories */}
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all duration-200 ${
-                  activeCategory === cat.id
-                    ? "bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/20"
-                    : "bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary border border-border"
-                }`}
-              >
-                {lang === "th" ? cat.labelTh : cat.label}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.id
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-200 ${
+                    isActive
+                      ? "bg-cyan-500 text-black shadow-md shadow-cyan-500/20"
+                      : "bg-card border border-border text-foreground hover:border-cyan-400 hover:bg-secondary"
+                  }`}
+                >
+                  {lang === "th" ? cat.labelTh : cat.label}
+                </button>
+              )
+            })}
           </div>
 
           {/* Search Input */}
@@ -87,7 +90,7 @@ export default function CertificatesSection({
               placeholder={lang === "th" ? "ค้นหาเกียรติบัตร..." : "Search credentials..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-9 text-xs bg-secondary/40 border-border rounded-xl font-mono"
+              className="pl-9 h-9 text-xs bg-card border-border rounded-xl font-mono text-foreground placeholder:text-muted-foreground"
             />
           </div>
         </div>
@@ -99,7 +102,7 @@ export default function CertificatesSection({
               ? `แสดง ${filteredCerts.length} จากทั้งหมด ${certs.length} รายการ`
               : `Showing ${filteredCerts.length} of ${certs.length} verified records`}
           </span>
-          <span className="hidden sm:inline text-cyan-400">
+          <span className="hidden sm:inline text-cyan-600 dark:text-cyan-400 font-semibold">
             Click any certificate to expand details
           </span>
         </div>
@@ -110,7 +113,7 @@ export default function CertificatesSection({
             <Card
               key={cert.id}
               onClick={() => onSelectCert(cert)}
-              className="bg-card/70 border-border/80 backdrop-blur-md hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/5 transition-all duration-300 cursor-pointer group flex flex-col justify-between overflow-hidden"
+              className="bg-card/80 border-border/80 backdrop-blur-md hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer group flex flex-col justify-between overflow-hidden"
             >
               {/* Image Preview */}
               <div className="relative aspect-[16/10] bg-black/40 overflow-hidden border-b border-border">
@@ -129,7 +132,7 @@ export default function CertificatesSection({
                   </Badge>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                  <span className="text-cyan-400 text-xs font-mono font-semibold flex items-center gap-1">
+                  <span className="text-cyan-300 text-xs font-mono font-semibold flex items-center gap-1">
                     <Sparkles className="w-3.5 h-3.5" />
                     Inspect Credential
                   </span>
@@ -139,21 +142,21 @@ export default function CertificatesSection({
               {/* Card Body */}
               <CardContent className="p-5 space-y-3 flex-1 flex flex-col justify-between">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider block">
                     {lang === "th" ? cert.categoryLabelTh : cert.categoryLabel}
                   </span>
-                  <h3 className="font-bold text-sm text-foreground group-hover:text-cyan-400 transition-colors line-clamp-2">
+                  <h3 className="font-bold text-sm text-foreground group-hover:text-cyan-500 transition-colors line-clamp-2">
                     {lang === "th" ? cert.titleTh : cert.title}
                   </h3>
                 </div>
 
-                <div className="pt-3 border-t border-border/60 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
+                <div className="pt-3 border-t border-border/60 flex items-center justify-between text-[11px] font-mono text-foreground/80 font-medium">
                   <span className="truncate max-w-[140px] flex items-center gap-1">
-                    <Building className="w-3 h-3 text-cyan-400 shrink-0" />
+                    <Building className="w-3 h-3 text-cyan-500 shrink-0" />
                     {cert.issuer}
                   </span>
-                  <span className="flex items-center gap-1 shrink-0">
-                    <Calendar className="w-3 h-3 text-purple-400" />
+                  <span className="flex items-center gap-1 shrink-0 text-foreground/75">
+                    <Calendar className="w-3 h-3 text-purple-500" />
                     {cert.date}
                   </span>
                 </div>

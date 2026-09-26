@@ -67,27 +67,30 @@ export default function SkillsSection({ lang = "en" }: SkillsSectionProps) {
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           <button
             onClick={() => setActiveCategory("all")}
-            className={`px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 ${
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 ${
               activeCategory === "all"
-                ? "bg-cyan-500 text-black font-bold shadow-lg shadow-cyan-500/20"
-                : "bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary border border-border"
+                ? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/25"
+                : "bg-card border border-border text-foreground hover:border-cyan-400 hover:bg-secondary"
             }`}
           >
             {lang === "th" ? "ทั้งหมด (All Categories)" : "All Categories (6 Domains)"}
           </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 ${
-                activeCategory === cat.id
-                  ? "bg-cyan-500 text-black font-bold shadow-lg shadow-cyan-500/20"
-                  : "bg-secondary/60 text-muted-foreground hover:text-foreground hover:bg-secondary border border-border"
-              }`}
-            >
-              {lang === "th" ? cat.titleTh : cat.title}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-200 ${
+                  isActive
+                    ? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/25"
+                    : "bg-card border border-border text-foreground hover:border-cyan-400 hover:bg-secondary"
+                }`}
+              >
+                {lang === "th" ? cat.titleTh : cat.title}
+              </button>
+            )
+          })}
         </div>
 
         {/* Skills Grid */}
@@ -95,19 +98,19 @@ export default function SkillsSection({ lang = "en" }: SkillsSectionProps) {
           {filteredCategories.map((category) => (
             <Card
               key={category.id}
-              className="bg-card/70 border-border/80 backdrop-blur-md hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/5 transition-all duration-300"
+              className="bg-card/80 border-border/80 backdrop-blur-md hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
             >
               <CardContent className="p-6 space-y-4">
                 {/* Category Header */}
                 <div className="flex items-center gap-3 pb-3 border-b border-border/60">
-                  <div className="p-2.5 rounded-xl bg-secondary border border-border/80">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
                     {getIcon(category.icon)}
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-foreground">
                       {lang === "th" ? category.titleTh : category.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground font-mono">
+                    <p className="text-xs text-muted-foreground font-mono font-medium">
                       {lang === "th" ? category.countLabelTh : category.countLabel}
                     </p>
                   </div>
@@ -118,9 +121,9 @@ export default function SkillsSection({ lang = "en" }: SkillsSectionProps) {
                   {category.skills.map((skill, sIdx) => (
                     <div
                       key={sIdx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/50 border border-border/70 hover:border-cyan-500/40 hover:bg-secondary transition-all text-xs font-mono text-foreground"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:border-cyan-400 hover:bg-cyan-500/15 transition-all text-xs font-mono text-foreground font-medium"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
                       <span>{skill}</span>
                     </div>
                   ))}
