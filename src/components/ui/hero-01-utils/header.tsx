@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react"
+"use client"
+
+import React, { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { Shield, Terminal, Menu, Moon, Sun, Globe, Download, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -28,6 +31,7 @@ export default function Header({
     { title: "Home", href: "#hero", isActive: true },
     { title: "About", href: "#about" },
     { title: "Skills", href: "#skills" },
+    { title: "Projects", href: "#projects" },
     { title: "Experience", href: "#experience" },
     { title: "Certificates", href: "#certificates" },
   ],
@@ -38,20 +42,72 @@ export default function Header({
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>("#hero")
 
+  // Scroll handler for background blur and ScrollSpy active section detection
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      const scrollPos = window.scrollY
+      setScrolled(scrollPos > 20)
+
+      // Section ScrollSpy
+      const sections = navigationData.map((item) => item.href.replace("#", ""))
+      const scrollThreshold = scrollPos + 140
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sectionId = sections[i]
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const offsetTop = element.offsetTop
+          if (scrollThreshold >= offsetTop) {
+            setActiveSection(`#${sectionId}`)
+            break
+          }
+        }
+      }
+
+      if (scrollPos < 100) {
+        setActiveSection("#hero")
+      }
     }
-    window.addEventListener("scroll", handleScroll)
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [navigationData])
+
+  // Smooth scroll handler with offset for sticky navbar
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault()
+    setActiveSection(href)
+    setIsOpen(false)
+
+    const sectionId = href.replace("#", "")
+    const targetElement = document.getElementById(sectionId)
+
+    if (targetElement) {
+      const navOffset = 75
+      const targetPosition =
+        targetElement.getBoundingClientRect().top + window.scrollY - navOffset
+
+      window.scrollTo({
+        top: href === "#hero" ? 0 : Math.max(0, targetPosition),
+        behavior: "smooth",
+      })
+
+      // Update URL hash smoothly without jump
+      window.history.replaceState(null, "", href)
+    }
+  }
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg shadow-black/5"
+          ? "bg-background/85 backdrop-blur-xl border-b border-border shadow-xl shadow-black/5"
           : "bg-transparent"
       }`}
     >
@@ -59,6 +115,7 @@ export default function Header({
         {/* Brand / Logo */}
         <a
           href="#hero"
+          onClick={(e) => handleNavClick(e, "#hero")}
           className="flex items-center gap-3 group focus:outline-none"
         >
           <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20 border border-cyan-500/40 flex items-center justify-center group-hover:border-cyan-400 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all duration-300">
@@ -75,21 +132,36 @@ export default function Header({
           </div>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full bg-secondary/50 border border-border/80 backdrop-blur-md">
-          {navigationData.map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              className={`px-3.5 py-1.5 text-xs lg:text-sm font-medium rounded-full transition-all duration-200 ${
-                item.isActive
-                  ? "bg-primary text-primary-foreground shadow-sm shadow-cyan-500/20"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent/60"
-              }`}
-            >
-              {item.title}
-            </a>
-          ))}
+        {/* Desktop Navigation with Animated Sliding Active Pill */}
+        <nav className="hidden md:flex items-center gap-1 p-1.5 rounded-full bg-secondary/80 border border-border/80 backdrop-blur-md relative">
+          {navigationData.map((item) => {
+            const isActive = activeSection === item.href
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className={`relative px-4 py-1.5 text-xs lg:text-sm font-semibold rounded-full transition-colors duration-200 z-10 ${
+                  isActive
+                    ? "text-black dark:text-slate-950 font-bold"
+                    : "text-foreground/80 hover:text-foreground hover:bg-white/5"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavPill"
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full shadow-md shadow-cyan-500/30 -z-10"
+                    transition={{
+                      type: "spring",
+                      stiffness: 450,
+                      damping: 32,
+                    }}
+                  />
+                )}
+                <span>{item.title}</span>
+              </a>
+            )
+          })}
         </nav>
 
         {/* Controls (Theme, Language, Mobile Menu, CV Button) */}
@@ -98,10 +170,10 @@ export default function Header({
           {onToggleLang && (
             <button
               onClick={onToggleLang}
-              className="px-2.5 py-1.5 text-xs font-mono font-medium rounded-lg border border-border bg-secondary/40 text-foreground hover:border-cyan-500/40 hover:bg-secondary transition-all flex items-center gap-1.5"
+              className="px-2.5 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-card text-foreground hover:border-cyan-500/40 hover:bg-secondary transition-all flex items-center gap-1.5"
               title="Toggle Language (TH/EN)"
             >
-              <Globe className="w-3.5 h-3.5 text-cyan-400" />
+              <Globe className="w-3.5 h-3.5 text-cyan-500" />
               <span>{lang.toUpperCase()}</span>
             </button>
           )}
@@ -110,7 +182,7 @@ export default function Header({
           {onToggleTheme && (
             <button
               onClick={onToggleTheme}
-              className="p-2 rounded-lg border border-border bg-secondary/40 text-foreground hover:border-cyan-500/40 hover:bg-secondary transition-all"
+              className="p-2 rounded-lg border border-border bg-card text-foreground hover:border-cyan-500/40 hover:bg-secondary transition-all"
               title="Toggle Theme"
             >
               {theme === "dark" ? (
@@ -131,7 +203,7 @@ export default function Header({
             <Button
               variant="outline"
               size="sm"
-              className="border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-cyan-400 dark:text-cyan-300 text-xs font-mono gap-1.5"
+              className="border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 text-xs font-mono gap-1.5 font-bold"
             >
               <Download className="w-3.5 h-3.5" />
               <span>CV.PDF</span>
@@ -149,7 +221,7 @@ export default function Header({
               <SheetContent side="right" className="w-[280px] sm:w-[350px] bg-background/95 backdrop-blur-xl border-l border-border flex flex-col justify-between">
                 <div>
                   <SheetHeader className="text-left pb-6 border-b border-border">
-                    <SheetTitle className="font-mono text-cyan-400 flex items-center gap-2">
+                    <SheetTitle className="font-mono text-cyan-500 flex items-center gap-2">
                       <Terminal className="w-4 h-4" />
                       <span>NAVIGATION_MENU</span>
                     </SheetTitle>
@@ -159,17 +231,24 @@ export default function Header({
                   </SheetHeader>
 
                   <div className="flex flex-col gap-2 mt-6">
-                    {navigationData.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className="px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-accent hover:text-cyan-400 text-foreground flex items-center justify-between"
-                      >
-                        <span>{item.title}</span>
-                        <span className="text-xs font-mono text-muted-foreground opacity-60">→</span>
-                      </a>
-                    ))}
+                    {navigationData.map((item) => {
+                      const isActive = activeSection === item.href
+                      return (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={(e) => handleNavClick(e, item.href)}
+                          className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-between ${
+                            isActive
+                              ? "bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/20"
+                              : "text-foreground hover:bg-secondary hover:text-cyan-500"
+                          }`}
+                        >
+                          <span>{item.title}</span>
+                          <span className="text-xs font-mono opacity-75">→</span>
+                        </a>
+                      )
+                    })}
                   </div>
                 </div>
 
@@ -180,7 +259,7 @@ export default function Header({
                     rel="noopener noreferrer"
                     className="w-full"
                   >
-                    <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-semibold font-mono text-xs gap-2">
+                    <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold font-mono text-xs gap-2">
                       <Download className="w-4 h-4" />
                       DOWNLOAD CV (PDF)
                     </Button>
@@ -191,9 +270,9 @@ export default function Header({
                     rel="noopener noreferrer"
                     className="w-full"
                   >
-                    <Button variant="outline" className="w-full text-xs font-mono gap-2">
+                    <Button variant="outline" className="w-full text-xs font-mono font-bold gap-2">
                       <ExternalLink className="w-3.5 h-3.5" />
-                      VIEW TRANSCRIPT (3.78)
+                      TRANSCRIPT (3.78)
                     </Button>
                   </a>
                 </div>

@@ -136,6 +136,7 @@ export const portfolioData: PortfolioData = {
     { title: "Home", titleTh: "หน้าแรก", href: "#hero", isActive: true },
     { title: "About", titleTh: "เกี่ยวกับฉัน", href: "#about" },
     { title: "Skills", titleTh: "ทักษะ", href: "#skills" },
+    { title: "Projects", titleTh: "โครงงาน", href: "#projects" },
     { title: "Experience", titleTh: "ประสบการณ์", href: "#experience" },
     { title: "Certificates", titleTh: "เกียรติบัตร", href: "#certificates" },
   ],
