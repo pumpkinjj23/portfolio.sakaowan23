@@ -48,10 +48,36 @@ export default function App() {
     localStorage.setItem("jubjang-theme", theme)
   }, [theme])
 
-  // Synchronize language with localStorage
+  // Global smooth scroll handler for all anchor links (#hero, #about, #skills, #projects, etc.)
   useEffect(() => {
-    localStorage.setItem("jubjang-lang", lang)
-  }, [lang])
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null
+      if (!target) return
+
+      const href = target.getAttribute("href")
+      if (!href || href === "#") return
+
+      const sectionId = href.replace("#", "")
+      const el = document.getElementById(sectionId)
+      if (el) {
+        e.preventDefault()
+        const navOffset = 75
+        const targetTop =
+          el.getBoundingClientRect().top + window.scrollY - navOffset
+        window.scrollTo({
+          top: href === "#hero" ? 0 : Math.max(0, targetTop),
+          behavior: "smooth",
+        })
+        window.history.replaceState(null, "", href)
+      } else if (href === "#hero") {
+        e.preventDefault()
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }
+
+    document.addEventListener("click", handleAnchorClick)
+    return () => document.removeEventListener("click", handleAnchorClick)
+  }, [])
 
   const toggleLanguage = () => {
     setLang((prev) => (prev === "th" ? "en" : "th"))

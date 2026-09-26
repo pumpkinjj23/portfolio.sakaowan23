@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Shield, Terminal, Menu, Moon, Sun, Globe, Download, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -43,31 +43,47 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string>("#hero")
+  const isClickScrollingRef = useRef(false)
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Scroll handler for background blur and ScrollSpy active section detection
+  // ScrollSpy to track active section while scrolling
   useEffect(() => {
     const handleScroll = () => {
       const scrollPos = window.scrollY
       setScrolled(scrollPos > 20)
 
-      // Section ScrollSpy
+      // If user recently clicked a link, don't let ScrollSpy override active state during animation
+      if (isClickScrollingRef.current) return
+
+      // If scrolled to near bottom, highlight the last section
+      if (
+        window.innerHeight + scrollPos >=
+        document.documentElement.scrollHeight - 60
+      ) {
+        setActiveSection(navigationData[navigationData.length - 1].href)
+        return
+      }
+
+      // If near top, highlight home
+      if (scrollPos < 120) {
+        setActiveSection("#hero")
+        return
+      }
+
+      // Calculate current active section by real document coordinates
+      const checkThreshold = scrollPos + 160
       const sections = navigationData.map((item) => item.href.replace("#", ""))
-      const scrollThreshold = scrollPos + 140
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const sectionId = sections[i]
         const element = document.getElementById(sectionId)
         if (element) {
-          const offsetTop = element.offsetTop
-          if (scrollThreshold >= offsetTop) {
+          const docTop = element.getBoundingClientRect().top + window.scrollY
+          if (checkThreshold >= docTop) {
             setActiveSection(`#${sectionId}`)
             break
           }
         }
-      }
-
-      if (scrollPos < 100) {
-        setActiveSection("#hero")
       }
     }
 
@@ -85,11 +101,18 @@ export default function Header({
     setActiveSection(href)
     setIsOpen(false)
 
+    // Lock ScrollSpy temporarily while smooth scrolling
+    isClickScrollingRef.current = true
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+    scrollTimeoutRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false
+    }, 900)
+
     const sectionId = href.replace("#", "")
     const targetElement = document.getElementById(sectionId)
 
     if (targetElement) {
-      const navOffset = 75
+      const navOffset = 80
       const targetPosition =
         targetElement.getBoundingClientRect().top + window.scrollY - navOffset
 
@@ -98,8 +121,9 @@ export default function Header({
         behavior: "smooth",
       })
 
-      // Update URL hash smoothly without jump
       window.history.replaceState(null, "", href)
+    } else if (href === "#hero") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
     }
   }
 
