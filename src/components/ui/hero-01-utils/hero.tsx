@@ -47,7 +47,7 @@ export default function HeroSection({
     {
       image: "images/cat_avatar.png",
       name: "จจฉายเดี่ยว",
-      team: "DropCTF Solo Rank #11",
+      team: "DropCTF Solo Competitor",
     },
   ],
   lang = "en",
@@ -173,7 +173,7 @@ export default function HeroSection({
                   <span>4x Competitive CTF Team Player</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] font-mono">
-                  whereisTheFlag • CPE00 • CPE66 • จจฉายเดี่ยว (#11 Rank)
+                  whereisTheFlag • CPE00 • CPE66 • จจฉายเดี่ยว
                 </p>
               </div>
             </div>

@@ -63,7 +63,7 @@ export default function AgencyHeroSection({
     {
       image: "images/cat_avatar.png",
       name: "จจฉายเดี่ยว",
-      team: "DropCTF Solo Rank #11",
+      team: "DropCTF Solo Competitor",
     },
   ],
   brandList = [
