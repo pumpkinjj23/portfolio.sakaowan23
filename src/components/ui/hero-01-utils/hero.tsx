@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { portfolioData } from "@/data/portfolioData"
 
 export interface AvatarList {
   image: string
@@ -188,7 +189,7 @@ export default function HeroSection({
               </a>
 
               <a
-                href="CV_Sakaowan.pdf"
+                href={portfolioData.personal.cvPdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"

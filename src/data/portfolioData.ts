@@ -120,7 +120,7 @@ export const portfolioData: PortfolioData = {
     addressTh: "61/1 หมู่ 4 ตำบลท่าฬ่อ อำเภอเมืองพิจิตร จังหวัดพิจิตร 66000",
     avatar: "images/cyber_avatar.jpg",
     transcriptPdf: "transcript.pdf",
-    cvPdf: "CV_Sakaowan.pdf",
+    cvPdf: "CV_Sakaowan.pdf?v=20261009_v2",
     bio: "Final-year Computer Engineering student at Pibulsongkram Rajabhat University (PSRU) with a strong interest in Cybersecurity and Software Testing. Hands-on experience in Network & Web Security, Cryptography, and Digital Forensics through academic projects and CTF competitions. A fast learner with strong analytical and problem-solving skills, able to work effectively both independently and as part of a team. Seeking an internship or entry-level position as a Security Tester, Cybersecurity Intern, Junior Security Engineer, QA Software Tester, or Penetration Tester / IT Security Consultant to apply my technical skills while growing professionally in cybersecurity and software engineering.",
     bioTh: "นักศึกษาชั้นปีสุดท้าย สาขาวิชาวิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยราชภัฏพิบูลสงคราม (PSRU) มีความสนใจอย่างยิ่งในด้านความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity) และการทดสอบซอฟต์แวร์ (Software Testing) มีประสบการณ์จริงในการทดสอบความปลอดภัยเครือข่ายและเว็บ, วิทยาการรหัสลับ (Cryptography) และนิติวิทยาศาสตร์ดิจิทัล (Digital Forensics) ผ่านโครงงานการศึกษาและการแข่งขัน CTF พร้อมเรียนรู้เร็ว มีทักษะการคิดวิเคราะห์และแก้ไขปัญหาที่ดี สามารถทำงานร่วมกับทีมและปฏิบัติงานเดี่ยวได้อย่างมีประสิทธิภาพ กำลังมองหาโอกาสฝึกงานหรือตำแหน่งงานระดับเริ่มต้น ในตำแหน่ง Security Tester, Cybersecurity Intern, Junior Security Engineer, QA Software Tester หรือ Penetration Tester / IT Security Consultant เพื่อนำทักษะด้านเทคนิคมาประยุกต์ใช้และพัฒนาต่อยอดในสายงาน",
   },

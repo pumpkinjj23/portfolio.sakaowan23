@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Shield, Terminal, Menu, Moon, Sun, Globe, Download, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { portfolioData } from "@/data/portfolioData"
 import {
   Sheet,
   SheetContent,
@@ -219,7 +220,7 @@ export default function Header({
 
           {/* Quick CV Download */}
           <a
-            href="CV_Sakaowan.pdf"
+            href={portfolioData.personal.cvPdf}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex"
@@ -278,7 +279,7 @@ export default function Header({
 
                 <div className="pt-6 border-t border-border flex flex-col gap-3">
                   <a
-                    href="CV_Sakaowan.pdf"
+                    href={portfolioData.personal.cvPdf}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full"
